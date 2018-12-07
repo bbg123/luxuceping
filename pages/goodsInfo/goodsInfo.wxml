@@ -1,0 +1,229 @@
+<view class="container">
+  <!-- 底部广告图 -->
+  <swiper class="goodsInfo_ad" indicator-dots="false" autoplay="true" interval="5000" indicator-active-color="#f41100"
+    indicator-color="rgba(250, 250, 250, .8)" circular>
+    <block wx:for="{{goodsData.imgs}}" wx:key="{{index}}">
+      <swiper-item data-imgsrc="{{item}}" bindtap="viewSwiperImg">
+        <image mode="widthFix" src="{{item}}" />
+      </swiper-item>
+    </block>
+    <block wx:if="{{goodsData.pintuan && cid != 2}}">
+      <view class="buyJoinBox" style="width:{{!buyJoinBox? '80rpx' : '442rpx'}};" >
+        <view class="buyJoinBox_text" catchtap="openBuyJoinBox">拼</view>
+        <view class="buyJoinBox_info" catchtap="goJoinGoodsInfo">
+          <view class="buyJoinBox_info_text">拼团价<text class="col_red">￥{{goodsData.pintuan.pintuan_price}}</text></view>
+          <view class="buyJoinBox_info_text">跟好友一起买更划算</view>
+          <view class="buyJoinBox_info_right">
+            去拼团>
+          </view>
+        </view>
+      </view>
+    </block>
+  </swiper>
+
+  <block wx:if="{{cid == 0}}">
+    <!-- 顶部标题 -->
+    <view class="goodsInfo_title text_hidden2">
+      {{goodsData.goods_name}}
+    </view>
+    <!-- 其他信息 -->
+    <view class="goodsInfo_other">
+      <view class="goodsInfo_other_top">
+        <view class="goodsInfo_other_top_new col_red">￥1000</view>
+        <view class="goodsInfo_other_top_old">￥10000</view>
+      </view>
+      <view class="goodsInfo_other_bottom">
+        <view class="goodsInfo_other_bottom_text">免运费</view>
+        <view class="goodsInfo_other_bottom_num">销量 {{goodsData.pintuan.goods_now}}</view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:elif="{{cid == 2}}">
+    <!-- 顶部提示 -->
+    <view class="bjInfo_tips">
+      <view class="bjInfo_tips_left">
+        拼团价￥
+        <text class="bjInfo_tips_left_new">{{goodsData.pintuan.pintuan_price}} </text>
+        <view class="bjInfo_tips_left_num">
+          <view class="bjInfo_tips_left_num_old">￥{{goodsData.pintuan.price}}</view>
+          <view>{{goodsData.pintuan.user_max}}人团</view>
+        </view>
+      </view>
+      <view class="bjInfo_tips_right">
+        已团{{goodsData.pintuan.goods_now}}件
+      </view>
+    </view>
+
+    <!-- 顶部标题 -->
+    <view class="bjInfo_title text_hidden2">
+      {{goodsData.goods_name}}
+      <view class="bjInfo_title_icon">拼团包邮</view>
+    </view>
+  </block>
+
+  <view class="goodsInfo_spec" bindtap="openGoodsSelect">
+    <view class="goodsInfo_spec_left">选择规格:</view>
+    <view class="goodsInfo_spec_icon">
+      <image mode="widthFix" src="../images/right_san.png"></image>
+    </view>
+    <view class="goodsInfo_spec_checked text_hidden">{{keyName || '请选择商品规格'}}</view>
+  </view>
+
+  <block wx:if="{{cid == 2}}">
+    <!-- 拼团内容 -->
+    <view class="bjInfo_team" wx:if="{{goodsData.pintuan.record_list.length > 0}}">
+      <view class="bjInfo_team_title">正在进行的拼团,可直接参与</view>
+      <block wx:for="{{goodsData.pintuan.record_list}}" wx:key="{{index}}">
+        <view class="bjInfo_team_content">
+          <view class="bjInfo_team_content_left">
+            <view class="bjInfo_team_content_left_img">
+              <image mode="widthFix" src="{{item.avatarurl != '' ? item.avatarurl : '../images/me.png'}}"></image>
+            </view>
+            <view class="bjInfo_team_content_left_text">
+              <view class="bjInfo_team_content_left_text_name">{{item.nickname != '' ? item.nickname : '匿名'}}</view>
+              <view class="bjInfo_team_content_left_text_sign text_hidden">{{item.msg}}</view>
+            </view>
+          </view>
+          <view class="bjInfo_team_content_right">
+            <view class="bjInfo_team_content_right_tips">
+              <view class="bjInfo_team_content_right_tips_num col_red">还差{{item.user_count}}人成团</view>
+              <view class="bjInfo_team_content_right_tips_time">仅剩 {{timeArr[index].s}}:{{timeArr[index].f}}:{{timeArr[index].m}}</view>
+            </view>
+            <view class="bjInfo_team_content_right_btn col_red" data-code="{{item.url_code}}" catchtap="goBuyJoinInfo">去参团</view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="recordList0" wx:if="{{goodsData.pintuan.record_list.length == 0}}">
+      暂未有用户发起拼团
+    </view>
+  </block>
+
+  <!-- 图文详情 -->
+  <view class="goodsInfo_imgtext">
+    <view class="goodsInfo_imgtext_title">图文详情</view>
+    <block wx:for="{{goodsData.content_imgs}}" wx:key="{{index}}">
+      <view class="goodsInfo_imgtext_img">
+        <image mode="widthFix" src="{{item}}"></image>
+      </view>
+    </block>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="goodsInfo_bottom">
+    <view class="goodsInfo_bottom_gohome" bindtap="gohome">
+      <view class="goodsInfo_bottom_gohome_img">
+        <image mode="widthFix" src="../images/home.png"></image>
+      </view>
+      首页
+    </view>
+    <view class="goodsInfo_bottom_collect" data-id="100" bindtap="collect">
+      <view class="goodsInfo_bottom_collect_img">
+        <image mode="widthFix" src="{{collect ? '../images/xinActive.png' :'../images/xin.png'}}"></image>
+      </view>
+      收藏
+    </view>
+    <button open-type="contact" class="goodsInfo_bottom_service">
+      <view class="goodsInfo_bottom_gohome_img">
+        <image mode="widthFix" src="../images/service.png"></image>
+      </view>
+      客服
+    </button>
+    <view class="goodsInfo_bottom_btn" bindtap="openGoodsSelect">
+      <block wx:if="{{cid == 0}}">
+        <view class="goodsInfo_bottom_btn_pink">加入购物车</view>
+        <view class="goodsInfo_bottom_btn_red">立即购买</view>
+      </block>
+      <block wx:elif="{{cid == 2}}">
+        <view class="bjInfo_bottom_btn_white">
+          <view class="bjInfo_bottom_btn_white_num">￥{{goodsData.pintuan.price}}</view>
+          <view class="bjInfo_bottom_btn_white_text">单独购买</view>
+        </view>
+        <view class="bjInfo_bottom_btn_red">
+          <view class="bjInfo_bottom_btn_red_num">￥{{goodsData.pintuan.pintuan_price}}</view>
+          <view class="bjInfo_bottom_btn_red_text">一键开团</view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 商品选择 -->
+  <view class="goods_select" style="bottom:{{goodsSelect ? '0' : '-100%'}};">
+    <view class="goods_select_title">
+      <text>请选择商品</text>
+      <view class="goods_select_title_close" bindtap="closeGoodsSelect">
+        <image mode="widthFix" src="/pages/images/x.png"></image>
+      </view>
+    </view>
+    <view class="goods_select_content">
+      <view class="goods_select_content_top">
+        <view class="goods_select_content_top_img" data-imgsrc="{{goodsImg}}" bindtap="viewSelectImg">
+          <image mode="widthFix" src="{{goodsImg}}"></image>
+        </view>
+        <view class="goods_select_content_top_intr">
+          <block wx:if="{{goodsPrice && keyName}}">
+            <view class="selectBox_content_top_intr_price col_red">￥{{goodsPrice}}</view>
+            <view class="selectBox_content_top_intr_checked text_hidden2">已选: {{keyName}}</view>
+          </block>
+          <block wx:else>
+            <view class="selectBox_content_top_intr_price col_red">请选择商品</view>
+          </block>
+        </view>
+      </view>
+      <view class="goods_select_content_center">
+        <view class="goods_select_content_center_option">
+          <block wx:for="{{speMap}}" wx:key="{{index}}">
+            <view class="goods_select_content_center_option_title">{{item.name}}</view>
+            <view class="goods_select_content_center_option_list">
+              <block wx:for="{{item.item}}" wx:for-index="indexs" wx:key="{{indexs}}" wx:for-item="items">
+                <view class="goods_select_content_center_option_list_box {{selectArr[index] == items.id ? 'box_active' : ''}} {{items.noStore ? 'list_box_nostore' : ''}}"
+                  data-img="{{items.img}}" bindtap="{{items.noStore ? '' : 'selectGoods'}}" data-id="{{items.id}}"
+                  data-cid="{{item.id}}">{{items.item}}</view>
+              </block>
+            </view>
+          </block>
+        </view>
+        <view class="goods_select_content_center_num">
+          <view class="goods_select_content_center_num_title">数量</view>
+          <view class="goods_select_content_center_num_content">
+            <view class="goods_select_content_center_num_content_box">
+              <view class="goods_select_content_center_num_content_box_btn {{buyNum <= 1 ? 'forbid' : ''}}" bindtap="delNum">-</view>
+              <view class="goods_select_content_center_num_content_box_num">{{buyNum}}</view>
+              <view class="goods_select_content_center_num_content_box_btn {{buyNum >= storeCount ? 'forbid' : ''}}"
+                bindtap="addNum">+</view>
+            </view>
+            <view class="goods_select_content_center_num_content_text col_red">
+              {{storeCount > 0 ? '库存充足' : '库存不足'}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="goods_select_content_bottom" style="bottom:{{goodsSelect ? '0' : '-100%'}};">
+        <block wx:if="{{cid == 0}}">
+          <view class="goodsInfo_bottom_btn_pink goods_select_content_bottom_btn" bindtap="addShopCar">加入购物车</view>
+          <view class="goodsInfo_bottom_btn_red goods_select_content_bottom_btn" bindtap="tapBuy">立即购买</view>
+        </block>
+        <block wx:elif="{{cid == 2}}">
+          <view class="bjInfo_bottom_btn_white" style="padding: 10rpx 0;" bindtap="tapBuy">
+            <view class="bjInfo_bottom_btn_white_num">￥{{goodsData.pintuan.price}}</view>
+            <view class="bjInfo_bottom_btn_white_text">单独购买</view>
+          </view>
+          <view class="bjInfo_bottom_btn_red" data-cid="2" style="padding: 10rpx 0;" bindtap="tapBuy">
+            <view class="bjInfo_bottom_btn_red_num">￥{{goodsData.pintuan.pintuan_price}}</view>
+            <view class="bjInfo_bottom_btn_red_text">一键开团</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="mask_layer" wx:if="{{goodsSelect}}" bindtap="closeGoodsSelect"></view>
+
+  <block wx:if="{{goTop}}">
+    <!-- 引入回到顶部模板 -->
+    <import src="../../template/goTop/goTop.wxml" />
+    <template is="goTop"></template>
+  </block>
+
+</view>

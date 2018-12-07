@@ -1,0 +1,163 @@
+@import '/template/nodata/nodata.wxss';
+
+.container {
+  height: 100%;
+}
+
+swiper, swiper-item, scroll-view {
+  width: 100%;
+  height: 100%;
+}
+
+swiper {
+  box-sizing: border-box;
+  padding-top: 90rpx;
+}
+
+/* 激活状态 */
+.active {
+  color: #000;
+  border-bottom: 2px solid #fe2942;
+}
+
+/* 顶部导航 */
+.order_topnav {
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 90rpx;
+  font-size: 30rpx;
+  color: #9c9c9c;
+  background-color: #fff;
+  border-bottom: 1px solid #f4f4f5;
+  box-sizing: border-box;
+}
+
+.order_topnav_btn {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* 待付款 */
+.order_pay {
+  margin-top: 20rpx;
+  background-color: #fff;
+  font-size: 30rpx;
+}
+
+.order_pay:last-child {
+  margin: 20rpx 0;
+}
+
+.order_pay_top {
+  padding: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom:1px solid #e5e5e5;
+}
+
+.order_pay_center {
+  display: flex;
+  padding: 30rpx 20rpx;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.order_pay_center_left {
+  width: 25%;
+  border: 1px solid #e4e4e4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order_pay_center_right {
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+}
+
+.order_pay_center_right_num {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 10rpx;
+}
+
+.order_pay_center_right_title {
+  line-height: 1.2;
+  margin: 10rpx 0;
+}
+
+.order_pay_center_right_intr {
+  color: #9e9e9e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order_pay_center_right_intr_text {
+  line-height: 1.2;
+  font-size: 26rpx;
+}
+
+.order_pay_center_right_price {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20rpx 0;
+}
+
+.order_pay_center_right_intr_num {
+  color: #a6a6a6;
+}
+
+.order_pay_bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 20rpx;
+}
+
+.order_pay_bottom_bottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.order_pay_bottom_btn {
+  padding: 15rpx 20rpx;
+  border-radius: 3px;
+  color: #000;
+  border: 1px solid #000;
+  margin-bottom: 30rpx;
+}
+
+.order_pay_bottom_cancel {
+  border-color: #d5d5d5;
+}
+
+.order_pay_bottom_pay {
+  border-color: #ff2842;
+  color: #ff2842;
+  margin-left: 20rpx;
+}
+
+.order_pay_bottom_look {
+  border: 1px solid #d5d5d5;
+  color: #000;
+}
+
+.order_pay_bottom_allPrice {
+  font-size: 26rpx;
+  margin: 10rpx 0 30rpx;
+}
+
+.order_pay_bottom_allPrice_num {
+  font-size: 36rpx;
+}

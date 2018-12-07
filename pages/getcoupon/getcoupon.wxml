@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="getcoupon_nav">
+    <view class="getcoupon_nav_btn {{pageIndex == 0 ? 'getcoupon_nav_btn_active': ''}}" bindtap="nav" data-index="0">领取优惠券</view>
+    <view class="getcoupon_nav_btn {{pageIndex == 1 ? 'getcoupon_nav_btn_active': ''}}" bindtap="nav" data-index="1">我的优惠券</view>
+  </view>
+  <block wx:for="{{couponitem}}" wx:key="{{index}}" wx:if="{{pageIndex == 0}}">
+    <view class="getcoupon_list" data-code="{{item.code}}" bindtap="{{item.is_get? '' : 'getCoupon'}}">
+      <view class="getcoupon_list_tip">
+        <view class="getcoupon_list_tip_money col_red"><text class="getcoupon_list_tip_money_fh">￥</text>{{item.money}}</view>
+        <view class="getcoupon_list_tip_type col_red">满{{item.use_condition}}可用</view>
+      </view>
+      <view class="getcoupon_list_txt">
+        <view class="getcoupon_list_txt_name getcoupon_list_txt_name1">{{item.name}}</view>
+        <view class="getcoupon_list_txt_time">{{item.use_date}}</view>
+        <view class="getcoupon_list_isGet back_red {{item.is_get? 'getcoupon_list_isGet1':''}}">
+          {{item.is_get? '已领取':'立即领取'}}
+        </view>
+        <view class="getcoupon_list_txt_pos" style="top: -15rpx;"></view>
+        <view class="getcoupon_list_txt_pos" style="bottom: -15rpx;"></view>
+      </view>
+    </view>
+  </block>
+  <block wx:for="{{MycouponItem}}" wx:key="{{index}}" wx:if="{{pageIndex == 1}}">
+    <view class="getcoupon_list" data-code="{{item.code}}">
+      <view class="getcoupon_list_tip">
+        <view class="getcoupon_list_tip_money col_red"><text class="getcoupon_list_tip_money_fh">￥</text>{{item.money}}</view>
+        <view class="getcoupon_list_tip_type col_red">满{{item.use_condition}}可用</view>
+      </view>
+      <view class="getcoupon_list_txt">
+        <view class="getcoupon_list_txt_name getcoupon_list_txt_name1">{{item.name}}</view>
+        <view class="getcoupon_list_txt_time">过期时间:{{item.end_time}}</view>
+        <view class="getcoupon_list_isuse back_red {{item.status == 0? '':'getcoupon_list_isGet1'}}">
+          {{item.status_name}}
+        </view>
+        <view class="getcoupon_list_txt_pos" style="top: -15rpx;"></view>
+        <view class="getcoupon_list_txt_pos" style="bottom: -15rpx;"></view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{(couponitem.length == 0 && pageIndex == 0) || (MycouponItem.length == 0 && pageIndex == 1)}}">
+    <!-- 引入无数据模板 -->
+    <import src="../../template/nodata/nodata.wxml" />
+    <template is="nodata" data="{{msg}}"></template>
+  </block>
+</view>

@@ -1,0 +1,5 @@
+<template name="goTop">
+  <view class="goTop" bindtap="goTop">
+    <image mode="widthFix" src="../images/go_top.png"></image>
+  </view>
+</template>

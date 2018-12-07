@@ -1,0 +1,13 @@
+<view class="container">
+  <block wx:for="{{newsList}}" wx:key="{{index}}">
+    <view class="headline_list" data-link="{{item.url}}" catchtap="goWebView">
+      <view class="headline_list_left">
+        <view class="headline_list_left_title text_hidden2">{{item.title}}</view>
+        <view class="headline_list_left_time">{{item.update_time}}</view>
+      </view>
+      <view class="headline_list_right">
+        <image mode="widthFix" src="{{item.thumb_url}}"></image>
+      </view>
+    </view>
+  </block>
+</view>

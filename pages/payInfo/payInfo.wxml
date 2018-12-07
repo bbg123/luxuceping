@@ -1,0 +1,82 @@
+<view class="container">
+  <view class="payInfo_main">
+    <!-- 顶部地址 -->
+    <view class="payInfo_main_topaddress" bindtap="getAddress">
+      <block wx:if="{{address != ''}}">
+        <view class="payInfo_main_topaddress_main">
+          <view class="payInfo_main_topaddress_main_left">
+            <view class="payInfo_main_topaddress_main_left_top">
+              {{userName}} {{telNumber}}
+            </view>
+            <view class="payInfo_main_topaddress_main_left_bottom text_hidden">{{province + city + district + address}}</view>
+          </view>
+          <view class="payInfo_main_topaddress_main_right">
+            <image mode="widthFix" src="../images/right_san.png"></image>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="payInfo_main_topaddress_left">
+          +添加收货地址
+        </view>
+        <view class="payInfo_main_topaddress_right">
+          请选择收货地址
+          <view class="payInfo_main_topaddress_right_icon">
+            <image mode="widthFix" src="../images/right_san.png"></image>
+          </view>
+        </view>
+      </block>
+    </view>
+    <!-- 内容 -->
+    <view class="payInfo_main_content">
+      <view class="payInfo_main_content_top">
+        <block wx:for="{{goodsData}}" wx:key="{{index}}">
+          <view class="payInfo_main_content_top_goods">
+            <view class="payInfo_main_content_top_goods_left">
+              <image mode="widthFix" src="{{item.goods_img}}"></image>
+            </view>
+            <view class="payInfo_main_content_top_goods_right">
+              <view class="payInfo_main_content_top_goods_right_bottom_top">
+                <view class="payInfo_main_content_top_goods_right_title text_hidden2">{{item.goods_name}}</view>
+                <view class="payInfo_main_content_top_goods_right_color text_hidden2">{{item.spec_key_name}}</view>
+              </view>
+              <view class="payInfo_main_content_top_goods_right_bottom">
+                <view class="payInfo_main_content_top_goods_right_bottom_price col_red">￥{{item.shop_price}}</view>
+                <view class="payInfo_main_content_top_goods_right_bottom_num">x{{item.goods_num}}</view>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="payInfo_main_content_bottom">
+        <view class="payInfo_main_content_bottom_other">
+          <view class="payInfo_main_content_bottom_other_left">邮费</view>
+          <view class="payInfo_main_content_bottom_other_right">全场包邮￥0</view>
+        </view>
+        <view class="payInfo_main_content_bottom_other" wx:if="{{!goodsData[0].cid}}">
+          <view class="payInfo_main_content_bottom_other_left">新人优惠劵</view>
+          <view class="payInfo_main_content_bottom_other_right">
+            <picker bindchange="bindPickerChange" value="{{usableCoupon[usableCouponIndex].code}}" range="{{usableCoupon}}" range-key="name">
+              <view class="picker">
+                ▼ {{usableCoupon[usableCouponIndex].name}} 
+              </view>
+            </picker>
+          </view>
+        </view>
+        <view class="payInfo_main_content_bottom_remark">
+          <view class="payInfo_main_content_bottom_remark_left">备注(可选):</view>
+          <view class="payInfo_main_content_bottom_remark_right">
+            <input type="text" value="{{user_note}}" bindinput="getRemark"/>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 结算按钮 -->
+    <view class="payInfo_main_bottombtn">
+      <view class="payInfo_main_bottombtn_left">
+        实付款:<text class="col_red payInfo_main_bottombtn_left_num">￥{{payMentPrice}}</text>
+      </view>
+      <view class="payInfo_main_bottombtn_right" bindtap="payment">微信支付</view>
+    </view>
+  </view>
+</view>

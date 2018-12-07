@@ -1,0 +1,64 @@
+<view class="container">
+  <block wx:if="{{goodsList.length == 0}}">
+    <view class="shopCar_nodata">
+      <view class="shopCar_nodata_icon">
+        <view class="shopCar_nodata_icon_img">
+          <image mode="widthFix" src="../images/kongShopCar.png"></image>
+        </view>
+        <view class="shopCar_nodata_icon_text">你的购物车是空的哦</view>
+      </view>
+      <view class="shopCar_nodata_btn back_red" bindtap="goHome">快去逛逛吧</view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="shopCar_main">
+      <!-- 内容 -->
+      <view class="shopCar_main_content">
+        <block wx:for="{{goodsList}}" wx:key="{{index}}">
+          <view class="shopCar_main_content_goods">
+            <view class="shopCar_main_content_goods_left" data-id="{{item.goods_id}}" catchtap="goGoodsInfo">
+              <view class="shopCar_main_content_goods_left_checked" data-index="{{index}}" catchtap="select">
+                <image mode="widthFix" src="../images/{{item.selected ? 'checked' : 'noChecked'}}.png"></image>
+              </view>
+              <view class="shopCar_main_content_goods_left_img">
+                <image mode="widthFix" src="{{item.goods_img}}"></image>
+              </view>
+            </view>
+            <view class="shopCar_main_content_goods_right">
+              <view class="shopCar_main_content_goods_right_bottom_top">
+                <view class="shopCar_main_content_goods_right_title text_hidden2">{{item.goods_name}}</view>
+                <view class="shopCar_main_content_goods_right_color">{{item.spec_key_name}}</view>
+              </view>
+              <view class="shopCar_main_content_goods_right_bottom">
+                <view class="shopCar_main_content_goods_right_bottom_btn">
+                  <view class="shopCar_main_content_goods_right_bottom_btn_left {{item.goods_num > 1 ? 'btn_active' : ''}}" catchtap="minus" data-index="{{index}}">-</view>
+                  <view class="shopCar_main_content_goods_right_bottom_btn_center">{{item.goods_num}}</view>
+                  <view class="shopCar_main_content_goods_right_bottom_btn_right btn_active" catchtap="plus" data-index="{{index}}">+</view>
+                </view>
+                <view class="shopCar_main_content_goods_right_bottom_price">￥{{item.shop_price}}</view>
+              </view>
+              <view class="shopCar_main_content_goods_right_close" data-index="{{index}}" catchtap="del">
+                <image mode="widthFix" src="../images/x.png"></image>
+              </view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <!-- 结算按钮 -->
+      <view class="shopCar_main_bottombtn">
+        <view class="shopCar_main_bottombtn_left">
+          <view class="shopCar_main_bottombtn_left_btn" catchtap="tapAllSelect">
+            <view class="shopCar_main_bottombtn_left_btn_img">
+              <image mode="widthFix" src="../images/{{allSelect ? 'checked' : 'noChecked'}}.png"></image>
+            </view>
+            全选
+          </view>
+          <view class="shopCar_main_bottombtn_left_price">
+            合计:<text class="col_red shopCar_main_bottombtn_left_price_num">￥{{totalPrices}}</text>
+          </view>
+        </view>
+        <view class="shopCar_main_bottombtn_right" catchtap="clearing">结算 ({{totalNum}})</view>
+      </view>
+    </view>
+  </block>
+</view>

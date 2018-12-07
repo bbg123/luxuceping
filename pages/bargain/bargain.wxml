@@ -1,0 +1,141 @@
+<view class="container">
+
+  <!-- 砍价商品 -->
+  <view class="bargain_index0" wx:if="{{swiperIndex == 0}}">
+
+    <!-- 头部图片 -->
+    <view class="bargain_titleimg">
+      <image mode="widthFix" src="../images/kanjia.jpg"></image>
+    </view>
+
+    <!-- 头部消息提示 -->
+    <view class="bargain_topmsg">
+      <swiper autoplay circular interval="3000" class="bargain_topmsg_box">
+        <block wx:for="{{msgList}}" wx:key="{{index}}">
+          <swiper-item catchtouchstart="catchTouchStart">
+            <view class="bargain_topmsg_img">
+              <image mode="widthFix" src="{{item.avatarurl}}"></image>
+            </view>
+            <view class="bargain_topmsg_txt text_hidden">
+              {{item.nickname}}<text class="col_red"> 砍了￥{{item.cutprice_price}}元 </text>砍成了{{item.goods_name || '宾爵镂空镶钻鳄鱼皮机械男表'}}
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+    <!-- 砍价商品 -->
+    <view class="bargain_content">
+
+      <block wx:for="{{goodsList}}" wx:key="{{index}}">
+        <view class="content_goods" data-id="{{item.goods_id}}" catchtap="goGoodsInfo">
+
+          <!-- 左边商品图 -->
+          <view class="content_goods_left">
+            <image mode="widthFix" src="{{item.goods_img}}"></image>
+          </view>
+
+          <!-- 右边介绍 -->
+          <view class="content_goods_right">
+
+            <!-- 引入商品列表模板 -->
+            <import src="../../template/goodsList/goodsList.wxml" />
+            <template is="goodsList" data="{{item}}"></template>
+
+            <!-- 底部按钮和价钱 -->
+            <view class="content_goods_right_btn">
+              <view class="content_goods_right_btn_left">
+                <view class="content_goods_right_btn_left_new col_red">￥{{item.goods_final_price}}{{goodsSelect1}}</view>
+                <view class="content_goods_right_btn_left_old">￥{{item.goods_price}}</view>
+              </view>
+              <view class="content_goods_right_btn_right" data-id="{{item.goods_id}}" data-code="{{item.url_code}}"
+                catchtap="openGoodsSelect">
+                <view class="content_goods_right_btn_right_btn back_red">{{item.url_code? '继续砍价' : '立即砍价'}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <select-box boxLink="bargain" goodsId="{{goodsId}}" goodsSelect="{{goodsSelect}}" wx:if="{{goodsSelect}}"></select-box>
+
+  </view>
+  <!-- 我的砍价 -->
+  <view class="bargain_index1" wx:if="{{swiperIndex == 1}}">
+    <block wx:for="{{mygoodsList}}" wx:key="{{index}}" wx:if="{{mygoodsList[0] != null}}">
+      <view class="mybargain_goods" data-code="{{item.url_code}}" bindtap="goinfo" wx:if="{{mygoodsList}}">
+        <view class="mybargain_goods_top">
+          <view class="mybargain_goods_top_left">
+            <image mode="widthFix" src="{{item.goods_img}}"></image>
+          </view>
+          <view class="mybargain_goods_top_right">
+            <view class="mybargain_goods_top_right_top">
+              <view class="mybargain_goods_top_right_title text_hidden">
+                {{item.goods_name}}
+              </view>
+              <view class="mybargain_goods_top_right_intr text_hidden2">
+                {{item.spec_key_name}}
+              </view>
+            </view>
+
+            <view class="mybargain_goods_top_right_tips">
+              <view class="mybargain_goods_top_right_tips_left">
+                <text class="col_red fontSize40">￥{{item.goods_now_price}} </text>
+                <text class="mybargain_goods_top_right_tips_left_old">原价:￥{{item.goods_price}}</text>
+              </view>
+              <view class="mybargain_goods_top_right_tips_right">最低:￥{{item.goods_final_price}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="mybargain_goods_bottom">
+          <view class="mybargain_goods_bottom_time" wx:if="{{timeArr[index] != 0 && item.status != 3 && item.status != 0}}">
+            <view class="mybargain_goods_bottom_time_num">{{timeArr[index].s}}</view>:
+            <view class="mybargain_goods_bottom_time_num">{{timeArr[index].f}}</view>:
+            <view class="mybargain_goods_bottom_time_num">{{timeArr[index].m}}</view>
+            后结束
+          </view>
+          <block wx:if="{{item.status == 2 || (item.order_sn && item.order_status == 1 && item.status == 1)}}">
+            <view class="mybargain_goods_bottom_btn back_red" data-index="{{index}}" catchtap="goPayInfo">
+              {{item.order_sn && item.order_status == 1 ? '已有订单,立即支付' : '已是低价,立即支付'}}
+            </view>
+          </block>
+          <block wx:elif="{{item.status == 3}}">
+            <view class="mybargain_goods_bottom_btn back_red">砍价成功</view>
+          </block>
+          <block wx:elif="{{item.status == 0}}">
+            <view class="mybargain_goods_bottom_btn">砍价失败</view>
+          </block>
+          <block wx:else>
+            <view class="mybargain_goods_bottom_btn back_red">查看详情</view>
+          </block>
+        </view>
+      </view>
+
+    </block>
+    <block wx:if="{{mygoodsList[0] == null}}">
+      <!-- 引入无数据模板 -->
+      <import src="../../template/nodata/nodata.wxml" />
+      <template is="nodata" data="{{msg}}"></template>
+    </block>
+  </view>
+
+  <block wx:if="{{goTop}}">
+    <!-- 引入回到顶部模板 -->
+    <import src="../../template/goTop/goTop.wxml" />
+    <template is="goTop"></template>
+  </block>
+
+  <!-- 导航栏 -->
+  <view class="bargain_nav">
+    <view class="bargain_nav_back" bindtap="backHome">
+      <view class="bargain_nav_back_img">
+        <image mode="widthFix" src="../images/home.png"></image>
+      </view>
+      首页
+    </view>
+    <view class="bargain_nav_btn {{swiperIndex == 0 ? 'active' : ''}}" data-index="0" bindtap="switch">砍价商品</view>
+    <view class="bargain_nav_btn {{swiperIndex == 1 ? 'active' : ''}}" data-index="1" bindtap="switch">我的砍价</view>
+  </view>
+
+</view>

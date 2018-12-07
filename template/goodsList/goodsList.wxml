@@ -1,0 +1,25 @@
+<template name="goodsList">
+  <!-- 头部标题 -->
+  <view class="content_goods_right_title text_hidden">
+    {{item.goods_name}}
+  </view>
+  <!-- 介绍 -->
+  <view class="content_goods_right_intr text_hidden">
+    {{item.goods_features}}
+  </view>
+  <!-- 中间进度条 -->
+  <view class="content_goods_right_center">
+    <view class="content_goods_right_center_box">
+      <view class="content_goods_right_center_box_children" style="width:{{item.goods_now / item.goods_max * 100}}%;"></view>
+    </view>
+  </view>
+  <!-- 底部库存 -->
+  <view class="content_goods_right_bottom">
+    <view class="content_goods_right_bottom_oldstock">
+      已抢{{item.goods_now}}件
+    </view>
+    <view class="content_goods_right_bottom_newstock">
+      剩余<text class="col_red">{{item.goods_max - item.goods_now}}</text>件
+    </view>
+  </view>
+</template>

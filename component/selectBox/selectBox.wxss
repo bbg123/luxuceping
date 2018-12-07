@@ -1,0 +1,183 @@
+/* 商品选择 */
+.selectBox {
+  width: 100%;
+  height: 90%;
+  position: fixed;
+  left: 0;
+  bottom: -100%;
+  background-color: #fff;
+  transition: all .5s;
+  z-index: 51;
+}
+
+.selectBox_title {
+  width: 100%;
+  height: 80rpx;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+}
+
+.selectBox_title_close {
+  width: 30rpx;
+  padding-left: 40rpx;
+}
+
+.selectBox_content {
+  height: calc(100% - 80rpx);
+  box-sizing: border-box;
+  padding: 20rpx 20rpx 100rpx;
+  position: relative;
+  overflow: scroll;
+}
+
+.selectBox_content_top {
+  display: flex;
+}
+
+.selectBox_content_top_img {
+  width: 35%;
+  border: 1px solid #ccc;
+  flex: none;
+}
+
+.selectBox_content_top_intr {
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+
+.selectBox_content_top_intr_price {
+  margin: 20rpx 0;
+}
+
+.selectBox_content_top_intr_checked {
+  color: #aaa;
+  line-height: 1.2;
+}
+
+.selectBox_content_center {
+  margin: 40rpx 0 100rpx;
+}
+
+.selectBox_content_center_option {
+  border-bottom: 1px solid #f0efef;
+  font-size: 30rpx;
+}
+
+.selectBox_content_center_option_title {
+  color: #aaa;
+}
+
+.selectBox_content_center_option_list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30rpx;
+}
+
+.selectBox_content_center_option_list_box {
+  font-size: 26rpx;
+  margin-bottom: 30rpx;
+  padding: 20rpx 40rpx;
+  border: 1px dashed #000;
+  margin-right: 20rpx;
+  box-sizing: border-box;
+  border-radius: 2px;
+  color: #000;
+}
+
+.box_active {
+  background-color: #ff2742;
+  color: #fff;
+  border: none;
+}
+
+.list_box_nostore {
+  border: 1px dashed #ccc;
+  background-color: #f4f3f1;
+  color: #ccc;
+}
+
+.selectBox_content_center_num {}
+
+.selectBox_content_center_num_title {
+  font-size: 28rpx;
+  padding: 20rpx 0;
+  color: #ccc;
+}
+
+.selectBox_content_center_num_content {
+  display: flex;
+  align-items: center;
+}
+
+.selectBox_content_center_num_content_box {
+  width: 200rpx;
+  display: flex;
+  border: 1px solid #9e9e9f;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 45rpx;
+}
+
+.selectBox_content_center_num_content_box_btn {
+  width: 28%;
+  line-height: 60rpx;
+}
+
+.forbid {
+  color: #ccc;
+}
+
+.selectBox_content_center_num_content_box_num {
+  width: 44%;
+  line-height: 60rpx;
+  border-right: 1px solid #9e9e9f;
+  border-left: 1px solid #9e9e9f;
+}
+
+.selectBox_content_center_num_content_text {
+  font-size: 25rpx;
+  margin-left: 20rpx;
+  color: #ff2742;
+}
+
+.selectBox_content_bottom {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition: all .5s;
+  font-size: 40rpx;
+  background-color: #ff2742;
+  color: #fff;
+}
+
+/* 遮罩层 */
+.mask_layer {
+  background-color: rgba(000, 000, 000, .6);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+}
+
+.col_red {
+  color: #ff2742 !important;
+}
+
+.back_red {
+  background-color: #ff2742 !important;
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "拼团商品",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

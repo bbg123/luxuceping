@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 地址列表 -->
+  <view class="addressList">
+    <view class="addressList_left">
+      <view class="addressList_left_top">
+        <view class="addressList_left_top_name">刘德华</view>
+        <view class="addressList_left_top_number">13366668888</view>
+        <view class="addressList_left_top_exit">
+          <view class="addressList_left_top_exit_image">
+            <image mode="widthFix" src="../images/exit.png"></image>
+          </view>
+          编辑
+        </view>
+      </view>
+      <view class="addressList_left_bottom">
+        <view class="addressList_left_bottom_address text_hidden2">广州市黄埔区第130号</view>
+      </view>
+    </view>
+    <view class="addressList_right">
+      <view class="addressList_right_btn">
+        <image mode="widthFix" src="../images/checked.png"></image>
+      </view>
+      <view class="addressList_right_btn">
+        <image mode="widthFix" src="../images/del.png"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="addressList">
+    <view class="addressList_left">
+      <view class="addressList_left_top">
+        <view class="addressList_left_top_name">刘德华</view>
+        <view class="addressList_left_top_number">13366668888</view>
+        <view class="addressList_left_top_exit">
+          <view class="addressList_left_top_exit_image">
+            <image mode="widthFix" src="../images/exit.png"></image>
+          </view>
+          编辑
+        </view>
+      </view>
+      <view class="addressList_left_bottom">
+        <view class="addressList_left_bottom_address text_hidden2">广州市黄埔区第130号</view>
+      </view>
+    </view>
+    <view class="addressList_right">
+      <view class="addressList_right_btn">
+        <image mode="widthFix" src="../images/noChecked.png"></image>
+      </view>
+      <view class="addressList_right_btn">
+        <image mode="widthFix" src="../images/del.png"></image>
+      </view>
+    </view>
+  </view>
+  <!-- 底部按钮 -->
+  <view class="address_bottom back_red" bindtap="getAddress">
+    + 新增收货地址
+  </view>
+</view>

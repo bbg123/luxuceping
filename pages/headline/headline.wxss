@@ -1,0 +1,41 @@
+.headline_list {
+  height: 200rpx;
+  display: flex;
+  padding: 30rpx;
+  background-color: #fff;
+  border-bottom: 1px solid #ececed;
+}
+
+.headline_list:last-child {
+  border: none;
+}
+
+.headline_list_left {
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.headline_list_left_title {
+  font-size: 30rpx;
+  line-height: 1.2;
+}
+
+.headline_list_left_time {
+  font-size: 26rpx;
+  color: #a9a9a9;
+  margin-bottom: 10rpx;
+}
+
+.headline_list_right {
+  width: 40%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}

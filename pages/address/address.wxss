@@ -1,0 +1,77 @@
+.container {
+  overflow: hidden;
+}
+/* 地址列表 */
+.addressList {
+  display: flex;
+  height: 100rpx;
+  border-bottom: 1px solid #f4f4f4;
+  font-size: 30rpx;
+  padding: 20rpx;
+  background-color: #fff;
+}
+
+.addressList:first-child {
+  margin-top: 20rpx;
+}
+
+.addressList_left {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.addressList_left_top {
+  display: flex;
+}
+
+.addressList_left_top_exit {
+  color: #b6b7b7;
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+}
+
+.addressList_left_top_exit_image {
+  width: 24rpx;
+  padding: 0 5rpx 0 20rpx;
+}
+
+.addressList_left_bottom {
+  display: flex;
+  font-size: 26rpx;
+}
+
+.addressList_left_bottom_address {
+  color: #666;
+}
+
+.addressList_left_top_name {
+  margin-right: 10rpx;
+}
+
+.addressList_right {
+  width: 15%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.addressList_right_btn {
+  width: 40%;
+}
+
+/* 底部按钮 */
+.address_bottom {
+  color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 80rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

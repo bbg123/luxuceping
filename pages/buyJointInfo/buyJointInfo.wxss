@@ -1,0 +1,309 @@
+.container {
+  background-color: #c82237;
+  padding: 0 10rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+}
+
+.col_yel {
+  color: #edd322 !important;
+}
+
+/* 顶部商品 */
+.bjninfo_top {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 120rpx;
+  padding: 80rpx 0 40rpx;
+  box-sizing: border-box;
+  border-radius: 10px;
+  position: relative;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bjninfo_top_img {
+  width: 120rpx;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.bjninfo_top_rule {
+  background-color: #f39f2e;
+  color: #fff;
+  border-radius: 5px 0 0 5px;
+  position: absolute;
+  right: 0;
+  top: 35rpx;
+  padding: 10rpx;
+}
+
+.bjninfo_top_order {
+  background-color: #c82237;
+  color: #fff;
+  border-radius: 5px 0 0 5px;
+  position: absolute;
+  right: 0;
+  top: 100rpx;
+  padding: 10rpx;
+}
+
+.bjninfo_top_name {
+  color: #666666;
+}
+
+.bjninfo_top_text {
+  margin: 46rpx 0;
+}
+
+.bjninfo_top_goods {
+  background-color: #f1f1f1;
+  padding: 10rpx 26rpx;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.bjninfo_top_goods_left {
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bjninfo_top_goods_right {
+  width: 70%;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+  padding-top: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bjninfo_top_goods_right_num {
+  display: flex;
+  justify-content: space-between;
+  margin: 20rpx 0;
+  color: #b7b7b7;
+}
+
+.bjninfo_top_goods_right_progress {
+  background-color: #999999;
+  width: 100%;
+  height: 6px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bjninfo_top_goods_right_progress_children {
+  background-color: #ff2b44;
+  width: 70%;
+  height: 100%;
+}
+
+.bjninfo_top_goods_right_name {
+  line-height: 1.2;
+  margin-top: 20rpx;
+  color: #636363;
+  font-size: 25rpx;
+}
+
+.bjninfo_top_goods_right_price {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 20rpx;
+}
+
+.bjninfo_top_goods_right_price_new {
+  font-size: 40rpx;
+}
+
+.bjninfo_top_goods_right_price_old {
+  color: #636363;
+  text-decoration: line-through;
+  font-size: 25rpx;
+  margin-left: 10rpx;
+}
+
+.bjninfo_top_goods_right_price_right {
+  color: #000;
+  font-size: 27rpx;
+}
+
+/* 中间内容 */
+
+.bjninfo_msg {
+  margin-top: 30rpx;
+  font-size: 40rpx;
+  color: #fdd20c;
+}
+
+/* 按钮 */
+.bjninfo_btn, .bjninfo_btn1 {
+  background-color: #fdd20c;
+  width: 90%;
+  padding: 25rpx 0;
+  text-align: center;
+  border-radius: 20px;
+}
+
+.bjninfo_btn {
+  animation: changeBtn 1.5s infinite alternate;
+}
+
+.bjninfo_btn2 {
+  border: 1px solid #fdd20c;
+  color: #fdd20c;
+  width: 90%;
+  padding: 25rpx 0;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 28rpx;
+  margin-top: 30rpx;
+}
+
+/* 按钮动画 */
+@keyframes changeBtn {
+  0% {
+    transform: scale(.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 底部拼团头像 */
+.bjninfo_bottom {
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bjninfo_bottom_title {
+  font-size: 28rpx;
+  color: #fff;
+}
+
+.bjninfo_bottom_portrait {
+  width: 100%;
+  margin: 30rpx 0 50rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.bjninfo_bottom_portrait_img {
+  flex: none;
+  width: 80rpx;
+  height: 80rpx;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px dashed #f8797a;
+  background-color: rgba(000,000,000,.2);
+  box-sizing: border-box;
+  margin-right: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+/* 砍价成功弹出框 */
+.bargainPopout {
+  width: 90%;
+  height: 540rpx;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 21;
+  font-size: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 30rpx 0;
+}
+
+.bargainPopout_back {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.bargainPopout_text {
+  color: #656565;
+  position: relative;
+  z-index: 2;
+  font-size: 40rpx;
+  line-height: 1.2;
+}
+
+.bargainPopout_btn {
+  color: #fff;
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  padding: 20rpx 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+/* 规则弹出框 */
+.bargainRule {
+  width: 80%;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  z-index: 11;
+  border-radius: 5px;
+}
+
+.bargainRule_title {
+  font-size: 35rpx;
+  font-weight: 600;
+  text-align: center;
+  padding: 20rpx 0;
+}
+
+.bargainRule_content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 30rpx 20rpx;
+  font-size: 30rpx;
+}
+
+.bargainRule_content_list {
+  line-height: 1.2;
+  margin-top: 15rpx;
+}
+
+.bargainRule_close {
+  width: 35rpx;
+  position: absolute;
+  right: 15rpx;
+  top: 5rpx;
+  padding: 10rpx;
+}

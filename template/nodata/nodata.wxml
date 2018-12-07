@@ -1,0 +1,8 @@
+<template name="nodata">
+  <view class="nodata">
+    <view class="nodata_img">
+      <image mode="widthFix" src="../images/nodata.png"></image>
+    </view>
+    <view class="nodata_text">{{msg}}</view>
+  </view>
+</template>

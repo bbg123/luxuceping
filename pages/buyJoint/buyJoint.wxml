@@ -1,0 +1,133 @@
+<view class="container">
+
+  <!-- 拼团商品 -->
+  <block wx:if="{{swiperIndex == 0}}">
+    <!-- 头部图片 -->
+    <view class="buyJoint_titleimg">
+      <image mode="widthFix" src="../images/pintuan.jpg"></image>
+    </view>
+
+    <!-- 头部消息提示 -->
+    <view class="buyJoint_topmsg">
+      <swiper autoplay circular interval="3000" class="buyJoint_topmsg_box">
+        <block wx:for="{{msgList}}" wx:key="{{index}}">
+          <swiper-item catchtouchstart="catchTouchStart">
+            <view class="buyJoint_topmsg_img">
+              <image mode="widthFix" src="{{item.avatarurl}}"></image>
+            </view>
+            <view class="buyJoint_topmsg_txt text_hidden">
+              {{item.nickname}}与好友成功团购了{{item.goods_name}}
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+
+    <!-- 砍价商品 -->
+    <view class="buyJoint_content">
+
+      <block wx:for="{{goodsList}}" wx:key="{{index}}">
+        <view class="content_goods" data-id="{{item.goods_id}}" bindtap="goinfo">
+          <!-- 左边商品图 -->
+          <view class="content_goods_left">
+            <image mode="widthFix" src="{{item.goods_img}}"></image>
+          </view>
+
+          <!-- 右边介绍 -->
+          <view class="content_goods_right">
+
+            <!-- 引入商品列表模板 -->
+            <import src="../../template/goodsList/goodsList.wxml" />
+            <template is="goodsList" data="{{item}}"></template>
+
+            <!-- 底部按钮和价钱 -->
+            <view class="content_goods_right_btn">
+              <view class="content_goods_right_btn_left">
+                <view class="content_goods_right_btn_left_text">
+                  <view>单人购买</view>
+                  <view class="content_goods_right_btn_left_text_bigtext"><text class="col_red">{{item.user_max}}</text>人团</view>
+                </view>
+                <view class="content_goods_right_btn_left_price">
+                  <view class="content_goods_right_btn_left_old">￥{{item.goods_price}}</view>
+                  <view class="content_goods_right_btn_left_new col_red">￥{{item.goods_final_price}}</view>
+                </view>
+              </view>
+              <view class="content_goods_right_btn_right" data-index="{{index}}" data-id="{{item.goods_id}}" catchtap="openGoodsSelect">
+                <view class="content_goods_right_btn_right_btn back_red">立即拼团</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <select-box boxLink="buyJoint" goodsName="{{goodsName}}" goodsId="{{goodsId}}" goodsSelect="{{goodsSelect}}" wx:if="{{goodsSelect}}"></select-box>
+  </block>
+
+  <!-- 我的拼团 -->
+  <block wx:if="{{swiperIndex == 1}}">
+    <block wx:for="{{mygoodsList}}" wx:key="{{index}}">
+      <view class="mybuyJoint_goods">
+        <view class="mybuyJoint_goods_title {{item.status == 0 || item.status == 4 ? '' : 'col_red'}}">
+          <view class="mybuyJoint_goods_title_piece {{item.status == 0 || item.status == 4 || timeArr[index] == 0 ? '' : 'back_red'}}"></view>
+          {{item.status_tips}}
+        </view>
+        <view class="mybuyJoint_goods_top" data-code="{{item.url_code}}" catchtap="goBuyJointInfo">
+          <view class="mybuyJoint_goods_top_left">
+            <image mode="widthFix" src="{{item.goods_img}}"></image>
+          </view>
+          <view class="mybuyJoint_goods_top_right">
+            <view>
+              <view class="mybuyJoint_goods_top_right_title text_hidden">{{item.goods_name}}</view>
+              <view class="mybuyJoint_goods_top_right_intr">
+                <view class="mybuyJoint_goods_top_right_intr_left">{{item.spec_key_name}}</view>
+              </view>
+            </view>
+            <view class="mybuyJoint_goods_top_right_bottom">
+              <view class="mybuyJoint_goods_top_right_bottom_price col_red">实付:￥{{item.goods_final_price}}</view>
+              <view class="mybuyJoint_goods_top_right_bottom_num">x{{item.goods_num}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="mybuyJoint_goods_bottom">
+          <view class="mybuyJoint_goods_bottom_time" wx:if="{{timeArr[index] != 0 && item.status != 3 && item.status != 0}}">
+            <view class="mybuyJoint_goods_bottom_time_num">{{timeArr[index].s}}</view>:
+            <view class="mybuyJoint_goods_bottom_time_num">{{timeArr[index].f}}</view>:
+            <view class="mybuyJoint_goods_bottom_time_num">{{timeArr[index].m}}</view>
+            后结束
+          </view>
+          <block wx:if="{{item.status == 0 || timeArr[index] == 0}}">
+            <view class="mybuyJoint_goods_bottom_btn back_red" data-index="{{index}}" catchtap="chopAgain">在拼一次</view>
+          </block>
+          <block wx:elif="{{item.status == 1 && timeArr[index] != 0}}">
+            <view class="mybuyJoint_goods_bottom_btn back_red" data-index="{{index}}" catchtap="goPayInfo">立即支付</view>
+          </block>
+          <block wx:elif="{{item.status == 2 && timeArr[index] != 0}}">
+            <button class="mybuyJoint_goods_bottom_btn back_red" open-type="share" style="padding:0;" data-index="{{index}}">喊人参团</button>
+          </block>
+          <block wx:else>
+            <view class="mybuyJoint_goods_bottom_btn back_red" data-index="{{index}}" catchtap="goOrder">查看订单</view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </block>
+
+  <block wx:if="{{goTop}}">
+    <!-- 引入回到顶部模板 -->
+    <import src="../../template/goTop/goTop.wxml" />
+    <template is="goTop"></template>
+  </block>
+
+  <!-- 导航栏 -->
+  <view class="buyJoint_nav">
+    <view class="buyJoint_nav_back" bindtap="backHome">
+      <view class="buyJoint_nav_back_img">
+        <image mode="widthFix" src="../images/home.png"></image>
+      </view>
+      首页
+    </view>
+    <view class="buyJoint_nav_btn {{swiperIndex == 0 ? 'active' : ''}}" data-index="0" bindtap="switch">团购商品</view>
+    <view class="buyJoint_nav_btn {{swiperIndex == 1 ? 'active' : ''}}" data-index="1" bindtap="switch">我的团购</view>
+  </view>
+
+</view>

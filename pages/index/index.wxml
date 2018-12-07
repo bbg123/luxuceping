@@ -1,0 +1,167 @@
+<view class="container">
+
+  <!-- 搜索框 -->
+  <view class="home_search" bindtap="gosearch">
+    <view class="home_search_btn">
+      搜索您需要的商品
+    </view>
+  </view>
+
+  <!-- 轮播图 -->
+  <swiper class="home_swiper" circular="true" indicator-color="rgba(255,255,255,1)" indicator-active-color="#ff2842" indicator-dots="true" autoplay="true" interval="3000">
+    <swiper-item>
+      <image lazy-load='true' mode="widthFix" src="/pages/images/home1.jpg?1" />
+    </swiper-item>
+    <swiper-item>
+      <image lazy-load='true' mode="widthFix" src="/pages/images/home1.jpg?2" />
+    </swiper-item>
+    <swiper-item>
+      <image lazy-load='true' mode="widthFix" src="/pages/images/home1.jpg?3" />
+    </swiper-item>
+  </swiper>
+
+  <!-- 导航栏 -->
+  <view class="home_nav">
+      <!-- 导航栏顶部介绍 -->
+    <view class="home_nav_top">
+      <view class="home_nav_top_text">
+        <view class="home_nav_top_text_icon">
+          <image lazy-load='true' mode="widthFix" src="../images/gou.png"></image>
+        </view>
+        专业测评
+      </view>
+      <view>/</view>
+      <view class="home_nav_top_text">
+        <view class="home_nav_top_text_icon">
+          <image lazy-load='true' mode="widthFix" src="../images/gou.png"></image>
+        </view>
+        品质保障
+      </view>
+      <view>/</view>
+      <view class="home_nav_top_text">
+        <view class="home_nav_top_text_icon">
+          <image lazy-load='true' mode="widthFix" src="../images/gou.png"></image>
+        </view>
+        全场包邮
+      </view>
+    </view>
+    <!-- 导航栏底部图标 -->
+    <view class="home_nav_bottom">
+      <view class="home_nav_btn">
+        <view class="home_nav_btn_img" bindtap="goheadline">
+          <image lazy-load='true' mode="widthFix" src="../images/headline.png"></image>
+        </view>
+        头条
+      </view>
+      <view class="home_nav_btn" bindtap="gobar">
+        <view class="home_nav_btn_img">
+          <image lazy-load='true' mode="widthFix" src="../images/discount.png"></image>
+        </view>
+        砍价
+      </view>
+      <view class="home_nav_btn" bindtap="gobuy">
+        <view class="home_nav_btn_img">
+          <image lazy-load='true' mode="widthFix" src="../images/join_goods.png"></image>
+        </view>
+        拼团
+      </view>
+      <view class="home_nav_btn" bindtap="goroll">
+        <view class="home_nav_btn_img">
+          <image lazy-load='true' mode="widthFix" src="../images/get_roll.png"></image>
+        </view>
+        领券
+      </view>
+    </view>
+  </view>
+
+  <!-- 侧边滚动条 -->
+  <view class="home_sidesroll">
+    <scroll-view scroll-x="true" class="home_sidesroll_scrollview">
+      <view class="home_sidesroll_scrollview_content">
+        <view class="home_sidesroll_scrollview_content_img">
+          <image lazy-load='true' mode="widthFix" src="../images/home2.jpg"></image>
+        </view>
+        <view class="home_sidesroll_scrollview_content_img">
+          <image mode="widthFix" src="../images/home2.jpg"></image>
+        </view>
+        <view class="home_sidesroll_scrollview_content_img">
+          <image mode="widthFix" src="../images/home2.jpg"></image>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 测评内容 -->
+  <view class="home_content">
+    <view class="home_content_title">
+      <view>—</view>
+      <view>测</view>
+      <view>评</view>
+      <view>好</view>
+      <view>物</view>
+      <view>—</view>
+    </view>
+    <view class="home_content_main">
+      <block wx:for="{{homeData}}" wx:key="{{index}}">
+        <view class="home_content_main_goods" data-id="{{item.goods_id}}" catchtap="goGoodsInfo">
+          <view class="home_content_main_goods_img">
+            <image lazy-load='true' mode="widthFix" src="{{item.goods_img}}"></image>
+          </view>
+          <view class="home_content_main_goods_content">
+            <!-- 顶部文字 -->
+            <view class="home_content_main_goods_content_top">
+              <!-- 顶部标题 -->
+              <view class="home_content_main_goods_content_top_title text_hidden">{{item.goods_name}}</view>
+              <!-- 中间介绍 -->
+              <view class="home_content_main_goods_content_top_intr text_hidden">
+                经检测:防水、抗过敏、未含有害物质诉讼法飞洒发发送sasdasdadfasdf
+              </view>
+              <!-- 底部价格和购物车 -->
+              <view class="home_content_main_goods_content_top_bottom">
+                <view class="home_content_main_goods_content_top_bottom_price">
+                  <view class="home_content_main_goods_content_top_bottom_price_new">
+                    ￥{{item.goods_final_price}}
+                  </view>
+                  <view class="home_content_main_goods_content_top_bottom_price_old">
+                    ￥{{item.goods_price}}
+                  </view>
+                </view>
+                <view class="home_content_main_goods_content_top_bottom_shopcar {{get_shopcar == item.goods_id ? 'get_shopcar' : ''}}" data-id="{{item.goods_id}}" data-speckey="{{item.spec_key}}" data-index="{{index + 1}}" catchtap="openGoodsSelect">
+                  <image lazy-load='true' mode="widthFix" src="../images/shopCar_pages.png"></image>
+                </view>
+              </view>
+              <!-- 印章 -->
+              <view class="home_content_main_goods_content_chapter">
+                <image lazy-load='true' mode="widthFix" src="../images/chapter.png"></image>
+              </view>
+            </view>
+            <!-- 中间进度条 -->
+            <view class="home_content_main_goods_content_center">
+              <view class="home_content_main_goods_content_center_box">
+                <view class="home_content_main_goods_content_center_box_children" style="width:{{item.goods_now / item.goods_max * 100}}%;"></view>
+              </view>
+            </view>
+            <!-- 底部库存 -->
+            <view class="home_content_main_goods_content_bottom">
+              <view class="home_content_main_goods_content_bottom_oldstock">
+                已抢{{item.goods_now}}件
+              </view>
+              <view class="home_content_main_goods_content_bottom_newstock">
+                剩余<text class="col_red">{{item.goods_max - item.goods_now}}</text>件
+              </view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <select-box boxLink="common" goodsId="{{goodsId}}" goodsSelect="{{goodsSelect}}" wx:if="{{goodsSelect}}"></select-box>
+
+  <block wx:if="{{goTop}}">
+    <!-- 引入回到顶部模板 -->
+    <import src="../../template/goTop/goTop.wxml" />
+    <template is="goTop"></template>
+  </block>
+
+</view>

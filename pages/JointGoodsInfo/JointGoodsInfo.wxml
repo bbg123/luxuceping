@@ -1,0 +1,113 @@
+<view class="container">
+  <!-- 底部广告图 -->
+  <swiper class="bjInfo_ad" indicator-dots="false" autoplay="true" interval="3000" indicator-active-color="#f41100"
+    indicator-color="rgba(250, 250, 250, .8)" circular>
+    <block wx:for="{{JointGoods.imgs}}" wx:key="{{index}}">
+      <swiper-item>
+        <image mode="widthFix" src="{{item}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 顶部提示 -->
+  <view class="bjInfo_tips">
+    <view class="bjInfo_tips_left">
+      拼团价￥
+      <text class="bjInfo_tips_left_new">25.8</text>
+      <view class="bjInfo_tips_left_num">
+        <view class="bjInfo_tips_left_num_old">￥29.8</view>
+        <view>2人团</view>
+      </view>
+    </view>
+    <view class="bjInfo_tips_right">
+      已团848件
+    </view>
+  </view>
+
+  <!-- 顶部标题 -->
+  <view class="bjInfo_title text_hidden2">
+    棉花秘密mimicotton婴儿手口湿巾新生婴幼儿专用宝宝湿巾大包80抽6包带盖装
+    <view class="bjInfo_title_icon">拼团包邮</view>
+  </view>
+
+  <!-- 拼团内容 -->
+  <view class="bjInfo_team">
+    <view class="bjInfo_team_title">正在进行的拼团,可直接参与</view>
+
+    <view class="bjInfo_team_content">
+      <view class="bjInfo_team_content_left">
+        <view class="bjInfo_team_content_left_img">
+          <image mode="widthFix" src="../images/me.png"></image>
+        </view>
+        <view class="bjInfo_team_content_left_text">
+          <view class="bjInfo_team_content_left_text_name">miya156****6666</view>
+          <view class="bjInfo_team_content_left_text_sign">买一波~</view>
+        </view>
+      </view>
+      <view class="bjInfo_team_content_right">
+        <view class="bjInfo_team_content_right_tips">
+          <view class="bjInfo_team_content_right_tips_num col_red">还差一人成团</view>
+          <view class="bjInfo_team_content_right_tips_time">仅剩 13:35:03</view>
+        </view>
+        <view class="bjInfo_team_content_right_btn col_red">去参团</view>
+      </view>
+    </view>
+
+    <view class="bjInfo_team_content">
+      <view class="bjInfo_team_content_left">
+        <view class="bjInfo_team_content_left_img">
+          <image mode="widthFix" src="../images/me.png"></image>
+        </view>
+        <view class="bjInfo_team_content_left_text">
+          <view class="bjInfo_team_content_left_text_name">miya156****6666</view>
+          <view class="bjInfo_team_content_left_text_sign">买一波~</view>
+        </view>
+      </view>
+      <view class="bjInfo_team_content_right">
+        <view class="bjInfo_team_content_right_tips">
+          <view class="bjInfo_team_content_right_tips_num col_red">还差一人成团</view>
+          <view class="bjInfo_team_content_right_tips_time">仅剩 13:35:03</view>
+        </view>
+        <view class="bjInfo_team_content_right_btn col_red">去参团</view>
+      </view>
+    </view>
+
+  </view>
+
+  <!-- 图文详情 -->
+  <view class="bjInfo_imgtext">
+    <view class="bjInfo_imgtext_title">图文详情</view>
+  </view>
+  <block wx:for="{{JointGoods.content_imgs}}" wx:key="{{index}}">
+    <view>
+      <image mode="widthFix" src="{{item}}"></image>
+    </view>
+  </block>
+
+  <!-- 底部操作栏 -->
+  <view class="bjInfo_bottom">
+    <view class="bjInfo_bottom_gohome" bindtap="gohome">
+      <view class="bjInfo_bottom_gohome_img">
+        <image mode="widthFix" src="../images/home.png"></image>
+      </view>
+      首页
+    </view>
+    <view class="bjInfo_bottom_collect" data-id="100" bindtap="collect">
+      <view class="bjInfo_bottom_collect_img">
+        <image mode="widthFix" src="{{collect ? '../images/xinActive.png' :'../images/xin.png'}}"></image>
+      </view>
+      收藏
+    </view>
+    <view class="bjInfo_bottom_btn">
+      <view class="bjInfo_bottom_btn_white">
+        <view class="bjInfo_bottom_btn_white_num">￥29.8</view>
+        <view class="bjInfo_bottom_btn_white_text">单独购买</view>
+      </view>
+      <view class="bjInfo_bottom_btn_red">
+        <view class="bjInfo_bottom_btn_red_num">￥25.8</view>
+        <view class="bjInfo_bottom_btn_red_text">一键开团</view>
+      </view>
+    </view>
+  </view>
+
+</view>

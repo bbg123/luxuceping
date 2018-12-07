@@ -1,0 +1,22 @@
+<view class="container">
+  <block wx:for="{{collectList}}" wx:key="{{index}}">
+    <view class="myCollect_goods" data-id="{{item.goods_id}}" catchtap="goGoodsInfo">
+      <view class="myCollect_goods_left">
+        <image mode="widthFix" src="{{item.img}}"></image>
+      </view>
+      <view class="myCollect_goods_right">
+        <view class="myCollect_goods_right_title text_hidden2">
+          {{item.goods_name}}
+        </view>
+        <view class="myCollect_goods_right_other">
+          <view class="myCollect_goods_right_other_price col_red">￥{{item.shop_price}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{collectList.length == 0}}">
+    <!-- 引入无数据模板 -->
+    <import src="../../template/nodata/nodata.wxml" />
+    <template is="nodata" data="{{msg}}"></template>
+  </block>
+</view>

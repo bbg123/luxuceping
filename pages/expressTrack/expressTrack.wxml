@@ -1,0 +1,36 @@
+<view class="container">
+  <block wx:if="{{trackData.length != 0}}">
+    <view class="track_top">
+      <view class="track_top_left">
+        <image mode="widthFix" src="../images/shouhuo2.png"></image>
+      </view>
+      <view class="track_top_right">
+        <view class="track_top_right_top">物流公司: {{trackData.shipping_name}}</view>
+        <view class="track_top_right_bottom">物流单号: {{trackData.shipping_code}}</view>
+      </view>
+    </view>
+    <view class="track_content">
+      <block wx:for="{{trackData.logistic_list}}" wx:key="{{index}}">
+        <view class="track_content_list">
+          <view class="track_content_left">
+            <view class="track_content_left_list">
+              <view class="track_content_left_list_yuan {{ index == 0 ? 'active1' : ''}}"></view>
+              <view class="track_content_left_list_line"></view>
+            </view>
+          </view>
+          <view class="track_content_right">
+            <view class="track_content_right_list {{ index == 0 ? 'active' : ''}}">
+              <view class="track_content_right_list_top">{{item.AcceptStation}}</view>
+              <view>{{item.AcceptTime}}</view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+  <block wx:if="{{trackData.length == 0}}">
+    <!-- 引入无数据模板 -->
+    <import src="../../template/nodata/nodata.wxml" />
+    <template is="nodata" data="{{msg}}"></template>
+  </block>
+</view>

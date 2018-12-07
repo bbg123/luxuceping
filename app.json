@@ -1,0 +1,49 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/shopCar/shopCar",
+    "pages/me/me",
+    "pages/bargain/bargain",
+    "pages/bargainInfo/bargainInfo",
+    "pages/buyJoint/buyJoint",
+    "pages/buyJointInfo/buyJointInfo",
+    "pages/getcoupon/getcoupon",
+    "pages/address/address",
+    "pages/order/order",
+    "pages/orderInfo/orderInfo",
+    "pages/myCollect/myCollect",
+    "pages/payInfo/payInfo",
+    "pages/goodsInfo/goodsInfo",
+    "pages/headline/headline",
+    "pages/expressTrack/expressTrack",
+    "pages/refund/refund",
+    "pages/webView/webView",
+    "pages/JointGoodsInfo/JointGoodsInfo"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#ff2742",
+    "navigationBarTitleText": "鲁迅测评",
+    "navigationBarTextStyle":"light"
+  },
+  "tabBar": {
+    "color": "#656565",
+    "selectedColor": "#ff2742",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "pages/images/home.png",
+      "selectedIconPath": "pages/images/home_active.png"
+    }, {
+      "pagePath": "pages/shopCar/shopCar",
+      "text": "购物车",
+      "iconPath": "pages/images/shopCar.png",
+      "selectedIconPath": "pages/images/shopCar_active.png"
+    }, {
+      "pagePath": "pages/me/me",
+      "text": "我的",
+      "iconPath": "pages/images/me.png",
+      "selectedIconPath": "pages/images/me_active.png"
+    }]
+  }
+}

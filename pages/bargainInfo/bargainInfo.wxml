@@ -1,0 +1,134 @@
+<view class="container">
+  <!-- 顶部商品 -->
+  <view class="bgninfo_top">
+    <view class="bgninfo_top_img">
+      <image mode="widthFix" src="{{bargainInfo.avatarurl != null ? bargainInfo.avatarurl : '../images/me.png'}}"></image>
+    </view>
+    <view class="bgninfo_top_rule" bindtap="getRule">活动规则</view>
+    <view class="bgninfo_top_name">{{bargainInfo.nickname}}</view>
+    <view class="bgninfo_top_text col_red">我发现一件好货,一起来砍价吧!</view>
+    <view class="bgninfo_top_goods">
+      <view class="bgninfo_top_goods_left">
+        <image mode="widthFix" src="{{bargainInfo.goods_img}}"></image>
+      </view>
+      <view class="bgninfo_top_goods_right">
+        <view>
+          <view class="bgninfo_top_goods_right_title text_hidden">{{bargainInfo.goods_name}}</view>
+          <view class="bgninfo_top_goods_right_name text_hidden2">{{bargainInfo.spec_key_name}}</view>
+          <view class="bgninfo_top_goods_right_num">
+            <view class="bgninfo_top_goods_right_num_oldstock">
+              已抢{{bargainInfo.goods_now}}件
+            </view>
+            <view class="bgninfo_top_goods_right_num_newstock">
+              剩余<text class="col_red">{{bargainInfo.goods_max - bargainInfo.goods_now}}</text>件
+            </view>
+          </view>
+          <view class="bgninfo_top_goods_right_progress">
+            <view class="bgninfo_top_goods_right_progress_children" style="width:{{bargainInfo.goods_now / bargainInfo.goods_max * 100}}%;"></view>
+          </view>
+        </view>
+        <view class="bgninfo_top_goods_right_price">
+          <view class="bgninfo_top_goods_right_price_left">
+            <text class="bgninfo_top_goods_right_price_new col_red">￥{{bargainInfo.goods_now_price}} </text>
+            <text class="bgninfo_top_goods_right_price_old">原价:￥{{bargainInfo.goods_price}}</text>
+          </view>
+          <view class="bgninfo_top_goods_right_price_right">
+            最低￥{{bargainInfo.goods_final_price}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <block wx:if="{{bargainInfo.is_my}}">
+    <!-- 判断是否是订单未支付状态 -->
+    <block wx:if="{{bargainInfo.over_second != 0 && bargainInfo.order_status == 1 && bargainInfo.order_sn}}">
+      <view class="bgninfo_clue col_yel">
+        已生成订单!订单号:{{bargainInfo.order_sn}}
+      </view>
+      <view class="bgninfo_btn1" catchtap="goPayInfo">立即支付</view>
+      <view class="bgninfo_btn2" bindtap="checkOther">查看更多砍价商品</view>
+    </block>
+    <!-- 判断是否是砍价状态 -->
+    <block wx:elif="{{bargainInfo.over_second != 0 && bargainInfo.status == 1}}">
+      <view class="bgninfo_clue">
+        已砍<text class="col_yel bgninfo_clue_num">{{bargainInfo.yikan}}</text>元,还差<text class="col_yel bgninfo_clue_num">{{bargainInfo.weikan}}</text>元
+      </view>
+      <button class="bgninfo_btn" open-type="share" style="padding:0;">邀请更多好友一起砍价</button>
+      <view class="bgninfo_btn2" catchtap="goPayInfo">当前价购买</view>
+    </block>
+    <block wx:elif="{{bargainInfo.over_second != 0 && bargainInfo.status == 2}}">
+      <view class="bgninfo_clue">
+        已是最低价! <text class="col_yel">￥{{bargainInfo.goods_now_price}} 元 </text>即可购买
+      </view>
+      <view class="bgninfo_btn1" catchtap="goPayInfo">立即支付</view>
+      <view class="bgninfo_btn2" bindtap="checkOther">查看更多砍价商品</view>
+    </block>
+    <block wx:elif="{{bargainInfo.status == 3}}">
+      <view class="bgninfo_clue col_yel">
+        砍价成功!订单号:{{bargainInfo.order_sn}}
+      </view>
+      <view class="bgninfo_btn1" bindtap="checkOther">查看更多砍价商品</view>
+      <view class="bgninfo_btn2" catchtap="goOrder">查看订单</view>
+    </block>
+    <block wx:else>
+      <view class="bgninfo_clue">
+        未在12小时内完成, 砍价已过期
+      </view>
+      <view class="bgninfo_btn" bindtap="checkOther">查看更多砍价商品</view>
+      <view class="bgninfo_btn2" bindtap="chopAgain">再砍一次</view>
+    </block>
+  </block>
+
+  <block wx:else>
+    <view class="bgninfo_clue">
+      已砍<text class="col_yel bgninfo_clue_num">{{bargainInfo.yikan}}</text>元,还差<text class="col_yel bgninfo_clue_num">{{bargainInfo.weikan}}</text>元
+    </view>
+    <view class="bgninfo_btn" bindtap="tapBargain">立即砍价</view>
+    <button class="bgninfo_btn1" open-type="share" style="padding:0; margin-top: 20rpx;">邀请更多好友一起砍价</button>
+  </block>
+
+  <!-- 时间 -->
+  <view class="bgninfo_time" wx:if="{{timeArr != 0 && bargainInfo.status == 1 || bargainInfo.status == 2}}">
+    还剩 {{timeArr.s}} 小时 {{timeArr.f}} 分 {{timeArr.m}} 秒结束,快来砍价吧~~
+  </view>
+
+  <!-- 底部记录 -->
+  <view class="bgninfo_bottom">
+    <view class="bgninfo_bottom_title">—— 好友砍价记录 ——</view>
+    <block wx:for="{{bargainInfo.record_list}}" wx:key="{{index}}">
+      <view class="bgninfo_bottom_content">
+        <view class="bgninfo_bottom_content_img">
+          <image mode="widthFix" src="{{item.avatarurl != null ? item.avatarurl : '../images/me.png'}}"></image>
+        </view>
+        <view class="bgninfo_bottom_content_num">砍掉<text class="col_yel"> {{item.cutprice_price}}</text>元</view>
+      </view>
+    </block>
+  </view>
+  <!-- 遮罩层 -->
+  <view class="mask_layer" wx:if="{{bargainStatus}}"></view>
+  <!-- 砍价成功弹出框 -->
+  <view class="bargainPopout" wx:if="{{bargainStatus}}">
+    <view class="bargainPopout_back">
+      <image mode="widthFix" src="../images/bargainImg.png"></image>
+    </view>
+    <text class="bargainPopout_text">你成功帮 {{bargainInfo.nickname}}
+      砍掉了 {{cutprice_price}} 元
+    </text>
+    <view class="bargainPopout_btn back_red" bindtap="closePopout">确定</view>
+  </view>
+  <!-- 规则弹出框 -->
+  <view class="bargainRule" wx:if="{{rule}}">
+    <view class="bargainRule_title">砍价规则</view>
+    <view class="bargainRule_content">
+      <view class="bargainRule_content_list">1、活动时间为12小时，所以一定要在12小内完成砍价</view>
+      <view class="bargainRule_content_list">2、每个人一天只能砍价五次，同一件商品每个人只能砍价一次</view>
+      <view class="bargainRule_content_list">3、点击邀请更多好友一起砍价，就可以选择分享给微信好友</view>
+    </view>
+    <view class="bargainRule_close" catchtap="closeRule">
+      <image mode="widthFix" src="../images/x.png"></image>
+    </view>
+  </view>
+  <!-- 遮罩层 -->
+  <view class="mask_layer" catchtap="closeRule" wx:if="{{rule}}"></view>
+</view>

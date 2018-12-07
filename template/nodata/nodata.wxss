@@ -1,0 +1,18 @@
+.nodata {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40rpx;
+  color: #272536;
+}
+
+.nodata_img {
+  width: 50%;
+  margin-bottom: 20rpx;
+}

@@ -1,0 +1,101 @@
+<view class="container">
+  <!-- 顶部状态 -->
+  <view class="orderInfo_status">
+    <view class="orderInfo_status_img">
+      <image mode="widthFix" src="../images/shouhuo2.png"></image>
+    </view>
+    <block wx:if="{{OrderInfoData.status == 1}}">
+      <view class="orderInfo_text">
+        已付款,等待发货
+      </view>
+    </block>
+    <block wx:if="{{OrderInfoData.status == 2}}">
+      <view class="orderInfo_text">
+        已发货,等待确认收货
+      </view>
+    </block>
+    <block wx:if="{{OrderInfoData.status == 3 || OrderInfoData.status == 4}}">
+      <view class="orderInfo_text">
+        交易完成
+      </view>
+    </block>
+  </view>
+  <!-- 地址 -->
+  <view class="orderInfo_address">
+    <block wx:if="{{OrderInfoData.last_logistic || OrderInfoData.shipping_code}}">
+      <view class="orderInfo_address_top" data-sn="{{OrderInfoData.order_sn}}" catchtap="goTrack">
+        <view class="orderInfo_address_top_left">
+          <block wx:if="{{OrderInfoData.last_logistic}}">
+            <view class="orderInfo_address_top_left_text text_hidden">{{OrderInfoData.last_logistic.AcceptStation}}</view>
+            <view class="orderInfo_address_top_left_time">{{OrderInfoData.last_logistic.AcceptTime}}</view>
+          </block>
+          <block wx:elif="{{OrderInfoData.shipping_code}}">
+            <view class="orderInfo_address_top_left_text text_hidden">{{OrderInfoData.shipping_name}}</view>
+            <view class="orderInfo_address_top_left_time">{{OrderInfoData.shipping_code}}</view>
+          </block>
+        </view>
+        <view class="orderInfo_address_top_img">
+          <image mode="widthFix" src="../images/right_san.png"></image>
+        </view>
+      </view>
+    </block>
+    <view class="orderInfo_address_bottom">
+      <view class="orderInfo_address_bottom_top text_hidden">收件地址: {{OrderInfoData.province}}{{OrderInfoData.city}}{{OrderInfoData.district}}{{OrderInfoData.address}}</view>
+      <view class="orderInfo_address_bottom_bottom">收件人: {{OrderInfoData.consignee}} {{OrderInfoData.mobile}}</view>
+    </view>
+  </view>
+  <block wx:for="{{OrderInfoData.goods_list}}" wx:key="{{index}}">
+    <!-- 商品 -->
+    <view class="orderInfo_goods" data-id="{{item.goods_id}}" catchtap="goGoodsInfo">
+      <view class="orderInfo_goods_left">
+        <image mode="widthFix" src="{{item.goods_img}}"></image>
+      </view>
+      <view class="orderInfo_goods_right">
+        <view class="order_pay_center_right_info">
+          <view class="orderInfo_goods_right_title text_hidden2">{{item.goods_name}}</view>
+          <view class="orderInfo_goods_right_intr">
+            <view class="orderInfo_goods_right_intr_text text_hidden2">{{item.spec_key_name}}</view>
+          </view>
+        </view>
+        <view class="order_pay_center_right_num">
+          <view class="orderInfo_goods_right_price">￥{{item.shop_price}}</view>
+          <view class="orderInfo_goods_right_intr_num">x{{item.goods_num}}</view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <!-- 价格 -->
+  <view class="orderInfo_price">
+    <view class="orderInfo_price_line">
+      <text>邮费</text>
+      <text>￥{{OrderInfoData.shipping_price}}</text>
+    </view>
+    <view class="orderInfo_price_line">
+      <text>新人优惠劵</text>
+      <text>{{OrderInfoData.coupon_money}}</text>
+    </view>
+    <view class="orderInfo_price_line">
+      <text>实付金额</text>
+      <text class="col_red">￥{{OrderInfoData.order_amount}}</text>
+    </view>
+  </view>
+  <!-- 时间 -->
+  <view class="orderInfo_time">
+    <view>订单编号:{{OrderInfoData.order_sn}}</view>
+    <view class="mar_10">付款时间:{{OrderInfoData.shipping_time}}</view>
+    <view>发货时间:{{OrderInfoData.pay_time}}</view>
+  </view>
+  <!-- 按钮 -->
+  <block wx:if="{{OrderInfoData.status == 3 || OrderInfoData.status == 4}}">
+    <view class="orderInfo_btn">
+      <view class="orderInfo_btn_look orderInfo_btn_box" data-sn="{{OrderInfoData.order_sn}}" catchtap="goTrack">查看物流</view>
+      <button open-type="contact" hover-class='none' class="orderInfo_btn_look orderInfo_btn_box">申请售后</button>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="orderInfo_btn">
+      <view class="orderInfo_btn_look orderInfo_btn_box" data-sn="{{OrderInfoData.order_sn}}" catchtap="goTrack">查看物流</view>
+      <view class="orderInfo_btn_config orderInfo_btn_box" data-sn="{{OrderInfoData.order_sn}}" catchtap="confirmGoods">确认收货</view>
+    </view>
+  </block>
+</view>

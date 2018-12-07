@@ -1,0 +1,78 @@
+/**app.wxss**/
+.container {
+  width: 100%;
+}
+
+page {
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f5;
+  position: relative;
+  line-height: 1;
+}
+
+image {
+  width: 100%;
+  display: block;
+}
+
+/* 一行溢出隐藏全局样式 */
+.text_hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 两行溢出隐藏全局样式 */
+.text_hidden2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* 加大字体 */
+.fontSize40 {
+  font-size: 40rpx;
+}
+
+/* 字体主题颜色全局样式 */
+.col_red {
+  color: #ff2742 !important;
+}
+
+/* 背景主题颜色全局样式 */
+.back_red {
+  background-color: #ff2742 !important;
+}
+
+/* 回到顶部全局样式 */
+.goTop {
+  width: 86rpx;
+  position: fixed;
+  right: 40rpx;
+  bottom: 220rpx;
+  z-index: 11;
+}
+
+/* 重置按钮样式 */
+button::after {
+  border: 0;
+}
+
+button {
+  border-radius: 0;
+  background-color: #fff;
+}
+
+/* 遮罩层 */
+.mask_layer {
+  background-color: rgba(000,000,000,.6);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}

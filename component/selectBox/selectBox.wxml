@@ -1,0 +1,65 @@
+<!-- 商品选择 -->
+<view class="selectBox" style="bottom:{{goodsSelect ? '0' : '-100%'}};">
+  <view class="selectBox_title">
+    <text>请选择商品</text>
+    <view class="selectBox_title_close" bindtap="closeGoodsSelect">
+      <image mode="widthFix" src="/pages/images/x.png"></image>
+    </view>
+  </view>
+  <view class="selectBox_content">
+    <view class="selectBox_content_top">
+      <view class="selectBox_content_top_img" data-imgsrc="{{goodsImg}}" bindtap="viewSelectImg">
+        <image mode="widthFix" src="{{goodsImg}}"></image>
+      </view>
+      <view class="selectBox_content_top_intr">
+        <block wx:if="{{goodsPrice && keyName}}">
+          <view class="selectBox_content_top_intr_price col_red">￥{{goodsPrice}}</view>
+          <view class="selectBox_content_top_intr_checked text_hidden2">已选: {{keyName}}</view>
+        </block>
+        <block wx:else>
+          <view class="selectBox_content_top_intr_price col_red">请选择商品</view>
+        </block>
+      </view>
+    </view>
+    <view class="selectBox_content_center">
+      <view class="selectBox_content_center_option">
+        <block wx:for="{{speMap}}" wx:key="{{index}}">
+          <view class="selectBox_content_center_option_title">{{item.name}}</view>
+          <view class="selectBox_content_center_option_list">
+            <block wx:for="{{item.item}}" wx:for-index="indexs" wx:key="{{indexs}}" wx:for-item="items">
+              <view class="selectBox_content_center_option_list_box {{selectArr[index] == items.id ? 'box_active' : ''}} {{items.noStore ? 'list_box_nostore' : ''}}"
+                data-img="{{items.img}}" bindtap="{{items.noStore ? '' : 'selectGoods'}}" data-id="{{items.id}}"
+                data-cid="{{item.id}}">{{items.item}}</view>
+            </block>
+          </view>
+        </block>
+      </view>
+      <view class="selectBox_content_center_num">
+        <view class="selectBox_content_center_num_title">数量</view>
+        <view class="selectBox_content_center_num_content">
+          <view class="selectBox_content_center_num_content_box">
+            <view class="selectBox_content_center_num_content_box_btn {{buyNum <= 1 ? 'forbid' : ''}}" bindtap="delNum">-</view>
+            <view class="selectBox_content_center_num_content_box_num">{{buyNum}}</view>
+            <view class="selectBox_content_center_num_content_box_btn {{buyNum >= storeCount ? 'forbid' : ''}}" bindtap="addNum">+</view>
+          </view>
+          <view class="selectBox_content_center_num_content_text">
+            {{storeCount > 0 ? '库存充足' : '库存不足'}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="selectBox_content_bottom" style="bottom:{{goodsSelect ? '0' : '-100%'}};" bindtap="confirmSelect">
+      <block wx:if="{{boxLink == 'bargain'}}">
+        立即砍价
+      </block>
+      <block wx:elif="{{boxLink == 'buyJoint'}}">
+        立即拼团
+      </block>
+      <block wx:else>
+        加入购物车
+      </block>
+    </view>
+  </view>
+</view>
+
+<view class="mask_layer" wx:if="{{goodsSelect}}" bindtap="closeGoodsSelect"></view>

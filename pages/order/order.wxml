@@ -1,0 +1,358 @@
+<view class="container">
+  <!-- 顶部导航 -->
+  <view class="order_topnav">
+    <view class="order_topnav_btn {{swiperIndex == 0? 'active' : ''}}" bindtap="switch" data-index="0">全部</view>
+    <view class="order_topnav_btn {{swiperIndex == 1? 'active' : ''}}" bindtap="switch" data-index="1">待支付</view>
+    <view class="order_topnav_btn {{swiperIndex == 2? 'active' : ''}}" bindtap="switch" data-index="2">待发货</view>
+    <view class="order_topnav_btn {{swiperIndex == 3? 'active' : ''}}" bindtap="switch" data-index="3">待收货</view>
+    <view class="order_topnav_btn {{swiperIndex == 4? 'active' : ''}}" bindtap="switch" data-index="4">已完成</view>
+  </view>
+  <swiper circular="true" bindchange="switchSwiper" current="{{swiperIndex}}">
+    <!-- 全部订单页面 -->
+    <swiper-item>
+      <scroll-view scroll-y scroll-into-view="{{sn}}" scroll-with-animation="true">
+        <!-- 待付款 -->
+        <block wx:for="{{OrderData1}}" wx:key="{{index}}">
+          <view class="order_pay" wx:if="{{OrderData1.length != 0 && timeArr[index] && timeArr}}">
+            <view class="order_pay_top">
+              <block wx:if="{{item.cid == 1}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[砍价]</text></view>
+              </block>
+              <block wx:elif="{{item.cid == 2}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[拼团]</text></view>
+              </block>
+              <block wx:else>
+                <view class="order_pay_top_num">订单号:{{item.order_sn}}</view>
+              </block>
+              <view class="order_pay_top_text col_red">等待付款</view>
+            </view>
+            <block wx:for="{{item.goods_list}}" wx:for-item="items" wx:for-index="{{indexs}}" wx:key="{{indexs}}">
+              <view class="order_pay_center">
+                <view class="order_pay_center_left">
+                  <image lazy-load='true' mode="widthFix" src="{{items.goods_img}}"></image>
+                </view>
+                <view class="order_pay_center_right">
+                  <view class="order_pay_center_right_info">
+                    <view class="order_pay_center_right_title text_hidden2">{{items.goods_name}}</view>
+                    <view class="order_pay_center_right_intr">
+                      <view class="order_pay_center_right_intr_text text_hidden2">{{items.spec_key_name}}</view>
+                    </view>
+                  </view>
+                  <view class="order_pay_center_right_num">
+                    <view class="order_pay_center_right_price">
+                      ￥{{items.shop_price}}
+                    </view>
+                    <view class="order_pay_center_right_intr_num">x{{items.goods_num}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class="order_pay_bottom">
+              <view class="order_pay_bottom_allPrice">
+                共{{item.goods_list.length}}件商品 总价:<text class="col_red order_pay_bottom_allPrice_num">￥{{item.order_amount}}</text>(含运费￥{{item.shipping_price}})
+              </view>
+              <view class="order_pay_bottom_bottom">
+                <view class="order_pay_bottom_time" style="margin:0 10rpx 30rpx 0;" wx:if="{{item.over_second != 0}}">有效时间:
+                  {{timeArr[index].s}}:{{timeArr[index].f}}:{{timeArr[index].m}}</view>
+                <view class="order_pay_bottom_cancel order_pay_bottom_btn" data-sn="{{item.order_sn}}" catchtap="closeOrder">关闭订单</view>
+                <view class="order_pay_bottom_pay order_pay_bottom_btn" data-sn="{{item.order_sn}}" catchtap="payMent">继续支付</view>
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <!-- 全部数据 -->
+        <block wx:for="{{OrderData}}" wx:key="{{index}}">
+          <view class="order_pay" id="id{{item.order_sn}}" data-sn="{{item.order_sn}}"  data-code="{{item.url_code}}" catchtap="{{item.pt_status == 2 ? 'goBuyJoin' :'goOrderInfo'}}" wx:if="{{item.status != 0}}">
+            <view class="order_pay_top">
+              <block wx:if="{{item.cid == 1}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[砍价]</text></view>
+              </block>
+              <block wx:elif="{{item.cid == 2}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[拼团]</text></view>
+              </block>
+              <block wx:else>
+                <view class="order_pay_top_num">订单号:{{item.order_sn}}</view>
+              </block>
+              <view class="order_pay_top_text col_red">
+                <block wx:if="{{item.status == 1 && item.pt_status == 2}}">
+                  拼团中
+                </block>
+                <block wx:elif="{{item.status == 1}}">
+                  等待发货
+                </block>
+                <block wx:elif="{{item.status == 2}}">
+                  等待收货
+                </block>
+                <block wx:elif="{{item.status == 3 || item.status == 4}}">
+                  已完成
+                </block>
+              </view>
+            </view>
+            <block wx:for="{{item.goods_list}}" wx:for-item="items" wx:for-index="{{indexs}}" wx:key="{{indexs}}">
+              <view class="order_pay_center">
+                <view class="order_pay_center_left">
+                  <image lazy-load='true' mode="widthFix" src="{{items.goods_img}}"></image>
+                </view>
+                <view class="order_pay_center_right">
+                  <view class="order_pay_center_right_info">
+                    <view class="order_pay_center_right_title text_hidden2">{{items.goods_name}}</view>
+                    <view class="order_pay_center_right_intr">
+                      <view class="order_pay_center_right_intr_text text_hidden2">{{items.spec_key_name}}</view>
+                    </view>
+                  </view>
+                  <view class="order_pay_center_right_num">
+                    <view class="order_pay_center_right_price">
+                      ￥{{items.shop_price}}
+                    </view>
+                    <view class="order_pay_center_right_intr_num">x{{items.goods_num}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class="order_pay_bottom">
+              <view class="order_pay_bottom_allPrice">
+                共{{item.goods_list.length}}件商品 总价:<text class="col_red order_pay_bottom_allPrice_num">￥{{item.order_amount}}</text>(含运费￥{{item.shipping_price}})
+              </view>
+              <block wx:if="{{(item.status == 1 || item.status == 3 || item.status == 4) && item.pt_status != 2}}">
+                <view class="order_pay_bottom_pay order_pay_bottom_btn order_pay_bottom_btn2" data-sn="{{item.order_sn}}" catchtap="buyAgain">再次购买</view>
+              </block>
+              <block wx:elif="{{item.status == 2}}">
+                <view class="order_pay_bottom_bottom">
+                  <view class="order_pay_bottom_cancel order_pay_bottom_btn" data-sn="{{item.order_sn}}" catchtap="checkLogistics">查看物流</view>
+                  <view class="order_pay_bottom_pay order_pay_bottom_btn" data-sn="{{item.order_sn}}" catchtap="confirmGoods">确认收货</view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{OrderData.length == 0}}">
+          <!-- 引入无数据模板 -->
+          <import src="../../template/nodata/nodata.wxml" />
+          <template is="nodata" data="{{msg}}"></template>
+        </block>
+      </scroll-view>
+    </swiper-item>
+    <!-- 待付款页面 -->
+    <swiper-item>
+      <scroll-view scroll-y>
+        <block wx:for="{{OrderData1}}" wx:key="{{index}}">
+          <view class="order_pay" wx:if="{{OrderData1.length != 0 && timeArr[index] && timeArr}}">
+            <view class="order_pay_top">
+              <block wx:if="{{item.cid == 1}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[砍价]</text></view>
+              </block>
+              <block wx:elif="{{item.cid == 2}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[拼团]</text></view>
+              </block>
+              <block wx:else>
+                <view class="order_pay_top_num">订单号:{{item.order_sn}}</view>
+              </block>
+              <view class="order_pay_top_text col_red">等待付款</view>
+            </view>
+            <block wx:for="{{item.goods_list}}" wx:for-item="items" wx:for-index="{{indexs}}" wx:key="{{indexs}}">
+              <view class="order_pay_center">
+                <view class="order_pay_center_left">
+                  <image lazy-load='true' mode="widthFix" src="{{items.goods_img}}"></image>
+                </view>
+                <view class="order_pay_center_right">
+                  <view class="order_pay_center_right_info">
+                    <view class="order_pay_center_right_title text_hidden2">{{items.goods_name}}</view>
+                    <view class="order_pay_center_right_intr">
+                      <view class="order_pay_center_right_intr_text text_hidden2">{{items.spec_key_name}}</view>
+                    </view>
+                  </view>
+                  <view class="order_pay_center_right_num">
+                    <view class="order_pay_center_right_price">
+                      ￥{{items.shop_price}}
+                    </view>
+                    <view class="order_pay_center_right_intr_num">x{{items.goods_num}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class="order_pay_bottom">
+              <view class="order_pay_bottom_allPrice">
+                共{{item.goods_list.length}}件商品 总价:<text class="col_red order_pay_bottom_allPrice_num">￥{{item.order_amount}}</text>(含运费￥{{item.shipping_price}})
+              </view>
+              <view class="order_pay_bottom_bottom">
+                <view class="order_pay_bottom_time" style="margin:0 10rpx 30rpx 0;">有效时间:
+                  {{timeArr[index].s}}:{{timeArr[index].f}}:{{timeArr[index].m}}</view>
+                <view class="order_pay_bottom_cancel order_pay_bottom_btn" data-sn="{{item.order_sn}}" catchtap="closeOrder">关闭订单</view>
+                <view class="order_pay_bottom_pay order_pay_bottom_btn" data-sn="{{item.order_sn}}" bindtap="payMent">继续支付</view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{OrderData1.length == 0}}">
+          <!-- 引入无数据模板 -->
+          <import src="../../template/nodata/nodata.wxml" />
+          <template is="nodata" data="{{msg}}"></template>
+        </block>
+      </scroll-view>
+    </swiper-item>
+    <!-- 待发货页面 -->
+    <swiper-item>
+      <scroll-view scroll-y>
+        <block wx:for="{{OrderData2}}" wx:key="{{index}}">
+          <view class="order_pay" wx:if="{{OrderData2.length != 0}}" data-sn="{{item.order_sn}}" data-code="{{item.url_code}}" catchtap="{{item.pt_status == 2 ? 'goBuyJoin' :'goOrderInfo'}}">
+            <view class="order_pay_top">
+              <block wx:if="{{item.cid == 1}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[砍价]</text></view>
+              </block>
+              <block wx:elif="{{item.cid == 2}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[拼团]</text></view>
+              </block>
+              <block wx:else>
+                <view class="order_pay_top_num">订单号:{{item.order_sn}}</view>
+              </block>
+              <view class="order_pay_top_text col_red">{{item.pt_status == 2 ? '拼团中' : '等待发货'}}</view>
+            </view>
+            <block wx:for="{{item.goods_list}}" wx:for-item="items" wx:for-index="{{indexs}}" wx:key="{{indexs}}">
+              <view class="order_pay_center">
+                <view class="order_pay_center_left">
+                  <image lazy-load='true' mode="widthFix" src="{{items.goods_img}}"></image>
+                </view>
+                <view class="order_pay_center_right">
+                  <view class="order_pay_center_right_info">
+                    <view class="order_pay_center_right_title text_hidden2">{{items.goods_name}}</view>
+                    <view class="order_pay_center_right_intr">
+                      <view class="order_pay_center_right_intr_text text_hidden2">{{items.spec_key_name}}</view>
+                    </view>
+                  </view>
+                  <view class="order_pay_center_right_num">
+                    <view class="order_pay_center_right_price">
+                      ￥{{items.shop_price}}
+                    </view>
+                    <view class="order_pay_center_right_intr_num">x{{items.goods_num}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class="order_pay_bottom">
+              <view class="order_pay_bottom_allPrice">
+                共{{item.goods_list.length}}件商品 总价:<text class="col_red order_pay_bottom_allPrice_num">￥{{item.order_amount}}</text>(含运费￥{{item.shipping_price}})
+              </view>
+              <view class="order_pay_bottom_pay order_pay_bottom_btn order_pay_bottom_btn2" data-sn="{{item.order_sn}}" catchtap="buyAgain" wx:if="{{item.pt_status != 2}}">再次购买</view>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{OrderData2.length == 0}}">
+          <!-- 引入无数据模板 -->
+          <import src="../../template/nodata/nodata.wxml" />
+          <template is="nodata" data="{{msg}}"></template>
+        </block>
+      </scroll-view>
+    </swiper-item>
+    <!-- 待收货页面 -->
+    <swiper-item>
+      <scroll-view scroll-y>
+        <block wx:for="{{OrderData3}}" wx:key="{{index}}">
+          <view class="order_pay" wx:if="{{OrderData3.length != 0}}" data-sn="{{item.order_sn}}" catchtap="goOrderInfo">
+            <view class="order_pay_top">
+              <block wx:if="{{item.cid == 1}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[砍价]</text></view>
+              </block>
+              <block wx:elif="{{item.cid == 2}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[拼团]</text></view>
+              </block>
+              <block wx:else>
+                <view class="order_pay_top_num">订单号:{{item.order_sn}}</view>
+              </block>
+              <view class="order_pay_top_text col_red">等待收货</view>
+            </view>
+            <block wx:for="{{item.goods_list}}" wx:for-item="items" wx:for-index="{{indexs}}" wx:key="{{indexs}}">
+              <view class="order_pay_center">
+                <view class="order_pay_center_left">
+                  <image lazy-load='true' mode="widthFix" src="{{items.goods_img}}"></image>
+                </view>
+                <view class="order_pay_center_right">
+                  <view class="order_pay_center_right_info">
+                    <view class="order_pay_center_right_title text_hidden2">{{items.goods_name}}</view>
+                    <view class="order_pay_center_right_intr">
+                      <view class="order_pay_center_right_intr_text text_hidden2">{{items.spec_key_name}}</view>
+                    </view>
+                  </view>
+                  <view class="order_pay_center_right_num">
+                    <view class="order_pay_center_right_price">
+                      ￥{{items.shop_price}}
+                    </view>
+                    <view class="order_pay_center_right_intr_num">x{{items.goods_num}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class="order_pay_bottom">
+              <view class="order_pay_bottom_allPrice">
+                共{{item.goods_list.length}}件商品 总价:<text class="col_red order_pay_bottom_allPrice_num">￥{{item.order_amount}}</text>(含运费￥{{item.shipping_price}})
+              </view>
+              <view class="order_pay_bottom_bottom">
+                <view class="order_pay_bottom_cancel order_pay_bottom_btn" data-sn="{{item.order_sn}}" catchtap="checkLogistics">查看物流</view>
+                <view class="order_pay_bottom_pay order_pay_bottom_btn" data-sn="{{item.order_sn}}" catchtap="confirmGoods">确认收货</view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{OrderData3.length == 0}}">
+          <!-- 引入无数据模板 -->
+          <import src="../../template/nodata/nodata.wxml" />
+          <template is="nodata" data="{{msg}}"></template>
+        </block>
+      </scroll-view>
+    </swiper-item>
+    <!-- 已完成页面 -->
+    <swiper-item>
+      <scroll-view scroll-y>
+        <block wx:for="{{OrderData4}}" wx:key="{{index}}">
+          <view class="order_pay" wx:if="{{item.status == 3 || item.status == 4}}" data-sn="{{item.order_sn}}" catchtap="goOrderInfo">
+            <view class="order_pay_top">
+              <block wx:if="{{item.cid == 1}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[砍价]</text></view>
+              </block>
+              <block wx:elif="{{item.cid == 2}}">
+                <view class="order_pay_top_num">订单号:{{item.order_sn}} <text class="col_red">[拼团]</text></view>
+              </block>
+              <block wx:else>
+                <view class="order_pay_top_num">订单号:{{item.order_sn}}</view>
+              </block>
+              <view class="order_pay_top_text col_red">已完成</view>
+            </view>
+            <block wx:for="{{item.goods_list}}" wx:for-item="items" wx:for-index="{{indexs}}" wx:key="{{indexs}}">
+              <view class="order_pay_center">
+                <view class="order_pay_center_left">
+                  <image lazy-load='true' mode="widthFix" src="{{items.goods_img}}"></image>
+                </view>
+                <view class="order_pay_center_right">
+                  <view class="order_pay_center_right_info">
+                    <view class="order_pay_center_right_title text_hidden2">{{items.goods_name}}</view>
+                    <view class="order_pay_center_right_intr">
+                      <view class="order_pay_center_right_intr_text text_hidden2">{{items.spec_key_name}}</view>
+                    </view>
+                  </view>
+                  <view class="order_pay_center_right_num">
+                    <view class="order_pay_center_right_price">
+                      ￥{{items.shop_price}}
+                    </view>
+                    <view class="order_pay_center_right_intr_num">x{{items.goods_num}}</view>
+                  </view>
+                </view>
+              </view>
+            </block>
+            <view class="order_pay_bottom">
+              <view class="order_pay_bottom_allPrice">
+                共{{item.goods_list.length}}件商品 总价:<text class="col_red order_pay_bottom_allPrice_num">￥{{item.order_amount}}</text>(含运费￥{{item.shipping_price}})
+              </view>
+              <view class="order_pay_bottom_pay order_pay_bottom_btn order_pay_bottom_btn2" data-sn="{{item.order_sn}}"
+                catchtap="buyAgain">再次购买</view>
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{OrderData4.length == 0}}">
+          <!-- 引入无数据模板 -->
+          <import src="../../template/nodata/nodata.wxml" />
+          <template is="nodata" data="{{msg}}"></template>
+        </block>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+</view>

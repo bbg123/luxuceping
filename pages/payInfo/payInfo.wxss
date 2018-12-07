@@ -1,0 +1,191 @@
+/* 支付订单内容 */
+.payInfo_main {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 100rpx;
+  box-sizing: border-box;
+}
+
+/* 顶部地址 */
+.payInfo_main_topaddress {
+  width: 100%;
+  height: 120rpx;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+  font-size: 35rpx;
+  margin-bottom: 20rpx;
+}
+
+.payInfo_main_topaddress_right {
+  color: #d8d8d8;
+  display: flex;
+  align-items: center;
+}
+
+.payInfo_main_topaddress_right_icon {
+  width: 60rpx;
+}
+
+.payInfo_main_topaddress_main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 10rpx 0;
+  box-sizing: border-box;
+}
+
+.payInfo_main_topaddress_main_left {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  font-size: 30rpx;
+}
+
+.payInfo_main_topaddress_main_right {
+  width: 10%;
+  display: flex;
+  align-items: center;
+}
+
+/* 中间内容 */
+
+.payInfo_main_content {
+
+}
+
+.payInfo_main_content_top {
+  position: relative;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.payInfo_main_content_top_goods {
+  display: flex;
+  padding: 40rpx;
+  border-top: 1px solid #e4e4e4;
+}
+
+.payInfo_main_content_top_goods:first-child {
+  border: none;
+}
+
+.payInfo_main_content_top_goods_left {
+  width: 30%;
+  border: 1px solid #e5e5e5;
+}
+
+.payInfo_main_content_top_goods_right {
+  width: 70%;
+  box-sizing: border-box;
+  padding: 0 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 30rpx;
+}
+
+.payInfo_main_content_top_goods_right_title {
+  color: #323232;
+  margin: 10rpx 0;
+  line-height: 1.2;
+}
+
+.payInfo_main_content_top_goods_right_color {
+  color: #979797;
+  line-height: 1.2;
+}
+
+.payInfo_main_content_top_goods_right_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 35rpx;
+}
+
+.payInfo_main_content_top_goods_right_bottom_num {
+  color: #979797;
+}
+
+.payInfo_main_content_bottom {
+  background-color: #fff;
+}
+
+.payInfo_main_content_bottom_other, .payInfo_main_content_bottom_remark {
+  border-top: 1px solid #e4e4e4;
+  display: flex;
+  align-items: center;
+  padding: 0 20rpx;
+  height: 100rpx;
+  font-size: 30rpx;
+}
+
+.payInfo_main_content_bottom_other {
+  justify-content: space-between;
+}
+
+.payInfo_main_content_bottom_other:first-child {
+  border-top: none;
+}
+
+.payInfo_main_content_bottom_remark_right {
+  width: 78%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.payInfo_main_content_bottom_remark_right input {
+  width: 100%;
+  height: 70%;
+  border-bottom: 1px solid #e4e4e4;
+  font-size: 35rpx;
+  margin-left: 20rpx;
+  box-sizing: border-box;
+  padding-left: 10rpx;
+  color: #ccc;
+}
+
+/* 底部按钮 */
+.payInfo_main_bottombtn {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30rpx;
+  border-top: 1px solid #f4f4f5;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.payInfo_main_bottombtn_left {
+  width: 65%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 20rpx;
+}
+
+.payInfo_main_bottombtn_left_num {
+  font-size: 40rpx;
+}
+
+.payInfo_main_bottombtn_right {
+  width: 35%;
+  height: 100%;
+  background-color: #16b015;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
